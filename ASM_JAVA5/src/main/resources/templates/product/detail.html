@@ -1,199 +1,169 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "primary": "#f2200d",
-          "background-light": "#fafaf9",
-          "background-dark": "#1a1a1a",
-        },
-        fontFamily: {
-          "display": ["Plus Jakarta Sans", "sans-serif"]
-        },
-        borderRadius: {
-          "DEFAULT": "0.5rem",
-          "lg": "1rem",
-          "xl": "1.5rem",
-          "full": "9999px"
-        },
-      },
-    },
-  }
-</script>
-<style>
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-  .custom-shadow {
-    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
-  }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-</style>
-<body>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title></title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div th:replace="layout/header :: header"></div>
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
-  <div class="flex flex-col lg:flex-row gap-12 xl:gap-20">
-    <div class="lg:w-1/2">
-      <div class="sticky top-28">
-        <div class="relative aspect-[4/3] rounded-3xl overflow-hidden custom-shadow group">
-          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_XVtIOWZNdRooI0nbza80-Nfq3YuXgJKP7sMnNdCU8I3cgAX2ELHionRJlL3mx3xfxhA4oyhLtVDVAE6ED7-d4SG8O0q6-YV5-iy0D_-5q-liGyod0J-zE8QQ-2Iu8rscPXUHrbrQtrD4FO3d9LlAzpRgL79r_ggrAoMYyXGfQb6G7oQ2X9GeU1-Cz9y1lQfSL_Bl8m3bBlr-ymkKqsfPiBnlgMicD7me0QMQerKRn1B_lqL_bOMQz59zbVYNfmzmxgy_xjfpfPVG');">
-          </div>
-          <div class="absolute top-6 left-6">
-            <span class="bg-yellow-400 text-black font-extrabold text-xs px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Bán chạy</span>
-          </div>
-          <div class="absolute bottom-6 right-6 flex gap-2">
-            <button class="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-800 shadow-md hover:bg-white transition-colors">
-              <span class="material-symbols-outlined">zoom_in</span>
-            </button>
-            <button class="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-md hover:bg-white transition-colors">
-              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">favorite</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="lg:w-1/2 flex flex-col justify-center">
-      <div class="space-y-6">
-        <div>
-          <h2 class="text-primary font-bold tracking-widest text-sm uppercase mb-2">Signature Burger</h2>
-          <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">Burger Bò Nướng BBQ</h1>
-        </div>
-        <div class="flex items-center gap-4">
-          <span class="text-3xl font-extrabold text-primary">65.000đ</span>
-          <div class="h-6 w-[1px] bg-gray-300 dark:bg-gray-700"></div>
-          <div class="flex items-center gap-1 text-yellow-500">
-            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
-            <span class="text-sm font-bold text-gray-700 dark:text-gray-300">4.9 (120+ đánh giá)</span>
-          </div>
-        </div>
-        <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
-          Thưởng thức vị bò nướng lửa hồng hòa quyện cùng sốt BBQ đậm đà đặc trưng, hành tây trắng giòn tan và xà lách tươi xanh, tất cả nằm gọn trong lớp bánh mì vừng mềm mịn nướng vàng. Một trải nghiệm ẩm thực bùng nổ hương vị khói.
-        </p>
-        <div class="pt-6 border-t border-gray-100 dark:border-gray-800 space-y-8">
-          <div class="flex flex-col gap-4">
-            <span class="font-bold text-sm uppercase tracking-wider text-gray-500">Tùy chọn</span>
-            <div class="flex flex-wrap gap-3">
-              <button class="px-5 py-2.5 rounded-full border-2 border-primary bg-primary/5 text-primary font-bold text-sm">Cỡ vừa</button>
-              <button class="px-5 py-2.5 rounded-full border-2 border-gray-200 dark:border-gray-700 hover:border-primary transition-colors font-bold text-sm">Cỡ lớn (+15k)</button>
+    <div class="flex flex-col lg:flex-row gap-12 xl:gap-20">
+        <div class="lg:w-1/2">
+            <div class="sticky top-28">
+                <div class="relative aspect-[4/3] rounded-3xl overflow-hidden custom-shadow group">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_XVtIOWZNdRooI0nbza80-Nfq3YuXgJKP7sMnNdCU8I3cgAX2ELHionRJlL3mx3xfxhA4oyhLtVDVAE6ED7-d4SG8O0q6-YV5-iy0D_-5q-liGyod0J-zE8QQ-2Iu8rscPXUHrbrQtrD4FO3d9LlAzpRgL79r_ggrAoMYyXGfQb6G7oQ2X9GeU1-Cz9y1lQfSL_Bl8m3bBlr-ymkKqsfPiBnlgMicD7me0QMQerKRn1B_lqL_bOMQz59zbVYNfmzmxgy_xjfpfPVG');">
+                    </div>
+                    <div class="absolute top-6 left-6">
+                        <span class="bg-yellow-400 text-black font-extrabold text-xs px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Bán chạy</span>
+                    </div>
+                    <div class="absolute bottom-6 right-6 flex gap-2">
+                        <button class="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-800 shadow-md hover:bg-white transition-colors">
+                            <span class="material-symbols-outlined">zoom_in</span>
+                        </button>
+                        <button class="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-md hover:bg-white transition-colors">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">favorite</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="flex flex-col sm:flex-row gap-4 items-center">
-            <div class="flex items-center bg-gray-100 dark:bg-gray-800 p-1 rounded-xl h-14">
-              <button class="w-12 h-full flex items-center justify-center hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-all">
-                <span class="material-symbols-outlined">remove</span>
-              </button>
-              <span class="w-12 text-center font-bold text-xl">1</span>
-              <button class="w-12 h-full flex items-center justify-center hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-all">
-                <span class="material-symbols-outlined">add</span>
-              </button>
+        </div>
+        <div class="lg:w-1/2 flex flex-col justify-center">
+            <div class="space-y-6">
+                <div>
+                    <h2 class="text-primary font-bold tracking-widest text-sm uppercase mb-2">Signature Burger</h2>
+                    <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">Burger Bò Nướng BBQ</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-3xl font-extrabold text-primary">65.000đ</span>
+                    <div class="h-6 w-[1px] bg-gray-300 dark:bg-gray-700"></div>
+                    <div class="flex items-center gap-1 text-yellow-500">
+                        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">4.9 (120+ đánh giá)</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                    Thưởng thức vị bò nướng lửa hồng hòa quyện cùng sốt BBQ đậm đà đặc trưng, hành tây trắng giòn tan và xà lách tươi xanh, tất cả nằm gọn trong lớp bánh mì vừng mềm mịn nướng vàng. Một trải nghiệm ẩm thực bùng nổ hương vị khói.
+                </p>
+                <div class="pt-6 border-t border-gray-100 dark:border-gray-800 space-y-8">
+                    <div class="flex flex-col gap-4">
+                        <span class="font-bold text-sm uppercase tracking-wider text-gray-500">Tùy chọn</span>
+                        <div class="flex flex-wrap gap-3">
+                            <button class="px-5 py-2.5 rounded-full border-2 border-primary bg-primary/5 text-primary font-bold text-sm">Cỡ vừa</button>
+                            <button class="px-5 py-2.5 rounded-full border-2 border-gray-200 dark:border-gray-700 hover:border-primary transition-colors font-bold text-sm">Cỡ lớn (+15k)</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 items-center">
+                        <div class="flex items-center bg-gray-100 dark:bg-gray-800 p-1 rounded-xl h-14">
+                            <button class="w-12 h-full flex items-center justify-center hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-all">
+                                <span class="material-symbols-outlined">remove</span>
+                            </button>
+                            <span class="w-12 text-center font-bold text-xl">1</span>
+                            <button class="w-12 h-full flex items-center justify-center hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-all">
+                                <span class="material-symbols-outlined">add</span>
+                            </button>
+                        </div>
+                        <button class="flex-1 w-full bg-primary hover:bg-primary/90 text-white font-extrabold text-lg py-4 px-8 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
+                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 pt-4">
+                    <div class="flex items-center gap-3 text-sm text-gray-500">
+                        <span class="material-symbols-outlined text-green-500">timer</span>
+                        Giao nhanh trong 30p
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-gray-500">
+                        <span class="material-symbols-outlined text-green-500">verified</span>
+                        Nguyên liệu sạch
+                    </div>
+                </div>
             </div>
-            <button class="flex-1 w-full bg-primary hover:bg-primary/90 text-white font-extrabold text-lg py-4 px-8 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
-              <span class="material-symbols-outlined">add_shopping_cart</span>
-              Thêm vào giỏ hàng
-            </button>
-          </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 pt-4">
-          <div class="flex items-center gap-3 text-sm text-gray-500">
-            <span class="material-symbols-outlined text-green-500">timer</span>
-            Giao nhanh trong 30p
-          </div>
-          <div class="flex items-center gap-3 text-sm text-gray-500">
-            <span class="material-symbols-outlined text-green-500">verified</span>
-            Nguyên liệu sạch
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <section class="mt-24">
-    <div class="flex items-end justify-between mb-8">
-      <div>
-        <h3 class="text-sm font-extrabold text-primary uppercase tracking-[0.2em] mb-2">Combo ngon hơn</h3>
-        <h2 class="text-3xl font-extrabold tracking-tight">Món ăn kèm gợi ý</h2>
-      </div>
-      <div class="flex gap-2">
-        <button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-white dark:hover:bg-gray-800">
-          <span class="material-symbols-outlined">chevron_left</span>
-        </button>
-        <button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-white dark:hover:bg-gray-800">
-          <span class="material-symbols-outlined">chevron_right</span>
-        </button>
-      </div>
-    </div>
-    <div class="flex overflow-x-auto gap-6 pb-8 hide-scrollbar">
-      <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
-        <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
-          <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDyU7q1DCBI2yoRawmqshP5mJOExis0WRCBOr4ERj__6uY7BE9EQL_hYFQorcI8WutPz-HfkmAx_y2JAd6m4ZZgCVzj3AaY3-VBHbseihGNPWyfyORzw86Ai4e3XECpoMKQqe6SU2NnaqJN_j0hfu-MthVxEUZSYtxrAZZD0W7IyLphi8uuwrMxTlLvRx4cgIz6lXIlZM88Y_qmBel_GLFRx3OAe2REJuQI1HHjRmllF3KmqytGwYf_DLGcPUD_S0q6XnJ03KoQHVV1');">
-          </div>
+    <section class="mt-24">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <h3 class="text-sm font-extrabold text-primary uppercase tracking-[0.2em] mb-2">Combo ngon hơn</h3>
+                <h2 class="text-3xl font-extrabold tracking-tight">Món ăn kèm gợi ý</h2>
+            </div>
+            <div class="flex gap-2">
+                <button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-white dark:hover:bg-gray-800">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-white dark:hover:bg-gray-800">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
         </div>
-        <h4 class="font-bold text-lg mb-1">Khoai tây chiên (L)</h4>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-extrabold text-primary">28.000đ</span>
-          <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
-            <span class="material-symbols-outlined">add</span>
-          </button>
+        <div class="flex overflow-x-auto gap-6 pb-8 hide-scrollbar">
+            <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
+                <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDyU7q1DCBI2yoRawmqshP5mJOExis0WRCBOr4ERj__6uY7BE9EQL_hYFQorcI8WutPz-HfkmAx_y2JAd6m4ZZgCVzj3AaY3-VBHbseihGNPWyfyORzw86Ai4e3XECpoMKQqe6SU2NnaqJN_j0hfu-MthVxEUZSYtxrAZZD0W7IyLphi8uuwrMxTlLvRx4cgIz6lXIlZM88Y_qmBel_GLFRx3OAe2REJuQI1HHjRmllF3KmqytGwYf_DLGcPUD_S0q6XnJ03KoQHVV1');">
+                    </div>
+                </div>
+                <h4 class="font-bold text-lg mb-1">Khoai tây chiên (L)</h4>
+                <div class="flex items-center justify-between mt-4">
+                    <span class="font-extrabold text-primary">28.000đ</span>
+                    <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
+            <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
+                <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuaj5M8PlTbpdZjWt6Gc84tkDRyjYN7j-K1NiLXxcycYxn49eQ4qLFS7P6ANik5lawUa7Uvq2VMixzaFAE63eUxQNUyRebtwDJ-8K242VdGT9BM9ja29h3wHxQxPRLQrUbWXCnFsf_3LOGKBE92N_k1Zb6mQnS617nMiR6ZfEOUeQz6H91g1RIwEwe3w4h1Rp_CeI5dAMR2RTXcq8yGxCCjG5IK22iCskiXNKEUpRC2WGzgb-saj88I4JxnI-aeEcp2Kb3-FQnJUzv');">
+                    </div>
+                </div>
+                <h4 class="font-bold text-lg mb-1">Gà rán 1 miếng</h4>
+                <div class="flex items-center justify-between mt-4">
+                    <span class="font-extrabold text-primary">35.000đ</span>
+                    <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
+            <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
+                <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOX8IzOtiMUf1QnXQ-9Ei73fmRi_jb6VTtWU2FNf4ixYz9NbP00h-qOesNE_kC7Q9rbRdnm4BrJs2-0s3XoN5r5h-u0LBoM-kQTnNTP4EUR8_fMSVeLVo9cMcPYq_zXT2ptsLqGbZyFcv-wHhbuo_sFwx65kh_oy-PMVINWlrAqCQfNB5V1GojgJKSkH5ZWJcxm2imE9U4ktRDqxuEiV5PuWwV8RtAdMiE0GhLdfeTID4ZTDjakfb99L2VGzJ132fjtt4iGGTQOkfG');">
+                    </div>
+                </div>
+                <h4 class="font-bold text-lg mb-1">Pepsi mát lạnh</h4>
+                <div class="flex items-center justify-between mt-4">
+                    <span class="font-extrabold text-primary">19.000đ</span>
+                    <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
+            <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
+                <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDc8ZerYaI02GqOLJ0pQb5w3lEwhIvmESrfXfOgQ0ZmypY8fE7Rwtt_lvK_9rCMDG9B3o1tiXGFsD5o5KyDb-Ygh82rxE9bJP6AodIC3fYJmO4f6zGg5foB3cBTBKr9X4YR1wvK2TJejPIH-7-tp9O7xsTS8S0wqm_K4umu-bnsvxuZlXUWVQKFIIum2gOT14XblvU-uGfqITmd-2Xazk7lu7RWasVSkijWFKhx5axWgySlvyzKTWVeDDivhHvXjqQd7pUG8_RY_eR_');">
+                    </div>
+                </div>
+                <h4 class="font-bold text-lg mb-1">Cánh gà Hot &amp; Spicy</h4>
+                <div class="flex items-center justify-between mt-4">
+                    <span class="font-extrabold text-primary">42.000đ</span>
+                    <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
-        <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
-          <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuaj5M8PlTbpdZjWt6Gc84tkDRyjYN7j-K1NiLXxcycYxn49eQ4qLFS7P6ANik5lawUa7Uvq2VMixzaFAE63eUxQNUyRebtwDJ-8K242VdGT9BM9ja29h3wHxQxPRLQrUbWXCnFsf_3LOGKBE92N_k1Zb6mQnS617nMiR6ZfEOUeQz6H91g1RIwEwe3w4h1Rp_CeI5dAMR2RTXcq8yGxCCjG5IK22iCskiXNKEUpRC2WGzgb-saj88I4JxnI-aeEcp2Kb3-FQnJUzv');">
-          </div>
-        </div>
-        <h4 class="font-bold text-lg mb-1">Gà rán 1 miếng</h4>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-extrabold text-primary">35.000đ</span>
-          <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
-            <span class="material-symbols-outlined">add</span>
-          </button>
-        </div>
-      </div>
-      <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
-        <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
-          <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOX8IzOtiMUf1QnXQ-9Ei73fmRi_jb6VTtWU2FNf4ixYz9NbP00h-qOesNE_kC7Q9rbRdnm4BrJs2-0s3XoN5r5h-u0LBoM-kQTnNTP4EUR8_fMSVeLVo9cMcPYq_zXT2ptsLqGbZyFcv-wHhbuo_sFwx65kh_oy-PMVINWlrAqCQfNB5V1GojgJKSkH5ZWJcxm2imE9U4ktRDqxuEiV5PuWwV8RtAdMiE0GhLdfeTID4ZTDjakfb99L2VGzJ132fjtt4iGGTQOkfG');">
-          </div>
-        </div>
-        <h4 class="font-bold text-lg mb-1">Pepsi mát lạnh</h4>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-extrabold text-primary">19.000đ</span>
-          <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
-            <span class="material-symbols-outlined">add</span>
-          </button>
-        </div>
-      </div>
-      <div class="min-w-[280px] bg-white dark:bg-gray-800 rounded-2xl p-4 custom-shadow group">
-        <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
-          <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDc8ZerYaI02GqOLJ0pQb5w3lEwhIvmESrfXfOgQ0ZmypY8fE7Rwtt_lvK_9rCMDG9B3o1tiXGFsD5o5KyDb-Ygh82rxE9bJP6AodIC3fYJmO4f6zGg5foB3cBTBKr9X4YR1wvK2TJejPIH-7-tp9O7xsTS8S0wqm_K4umu-bnsvxuZlXUWVQKFIIum2gOT14XblvU-uGfqITmd-2Xazk7lu7RWasVSkijWFKhx5axWgySlvyzKTWVeDDivhHvXjqQd7pUG8_RY_eR_');">
-          </div>
-        </div>
-        <h4 class="font-bold text-lg mb-1">Cánh gà Hot &amp; Spicy</h4>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-extrabold text-primary">42.000đ</span>
-          <button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
-            <span class="material-symbols-outlined">add</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </main>
 
-
+<div th:replace="layout/footer :: footer"></div>
 </body>
 </html>
