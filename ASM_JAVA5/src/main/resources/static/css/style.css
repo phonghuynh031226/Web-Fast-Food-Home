@@ -1,0 +1,68 @@
+/* Font */
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Shadow */
+.custom-shadow {
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+}
+
+.soft-shadow {
+    box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
+}
+
+.auth-card-shadow {
+    box-shadow: 0 20px 50px rgba(242, 32, 13, 0.05);
+}
+
+/* Hover */
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Text */
+.text-shadow-sm {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Scrollbar hidden */
+.hide-scrollbar::-webkit-scrollbar,
+.slides-container::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar,
+.slides-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Icons */
+.material-symbols-outlined {
+    font-variation-settings: 
+        'FILL' 0, 
+        'wght' 400, 
+        'GRAD' 0, 
+        'opsz' 24;
+}
+
+/* Method card */
+.method-card input:checked + div {
+    border-color: #f2200d;
+    background-color: rgba(242, 32, 13, 0.05);
+}
+
+.method-card input:checked + div .icon-box {
+    background-color: #f2200d;
+    color: white;
+}
+
+/* Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}

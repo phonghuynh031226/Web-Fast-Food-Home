@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<!--<nav class="flex flex-col gap-2">-->
-<!--  <a th:each="m : ${menus}"-->
-<!--     class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all" href="#">-->
-<!--    <span class="material-symbols-outlined">sell</span>-->
-<!--    <span class="text-sm font-medium" th:text="${m.name}"></span>-->
-<!--  </a>-->
-<!--</nav>-->
-<nav class="flex flex-col gap-2">
-    <a th:each="m : ${menus}"
-       th:href="@{/product/list(menuId=${m.id})}"
-       th:classappend="${menuId == m.id} ? 'bg-primary/10 text-primary font-bold' : ''"
-       class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
-
-        <span class="material-symbols-outlined">sell</span>
-        <span class="text-sm font-medium" th:text="${m.name}"></span>
-    </a>
-</nav>
-
-</body>
-</html>
+<aside class="w-full md:w-64 flex-shrink-0" th:fragment="menu">
+    <div class="sticky top-24 space-y-6">
+        <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-2xl flex items-center gap-3 border border-primary/10">
+            <div class="size-10 bg-primary rounded-full flex items-center justify-center text-white">
+                <span class="material-symbols-outlined">restaurant_menu</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm">Danh Mục</h3>
+                <p class="text-xs text-primary/70">Khám phá thực đơn</p>
+            </div>
+        </div>
+        <nav class="flex flex-col gap-2">
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+               th:classappend="${param.menuId == m.menuId} ? 'bg-primary/10 text-primary font-bold' : ''"
+               th:each="m : ${menus}"
+               th:href="@{/product/list(menuId=${m.menuId})}">
+                <span class="material-symbols-outlined">lunch_dining</span>
+                <span class="text-sm font-medium"  th:text="${m.menuName}"></span>
+            </a>
+        </nav>
+    </div>
+</aside>

@@ -1,90 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title></title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/script.js}"></script>
+
 </head>
-
-
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: {
-            extend: {
-                colors: {
-                    "primary": "#f2200d",
-                    "background-light": "#fafaf9",
-                    "background-dark": "#1a1a1a",
-                    "card-light": "#ffffff",
-                    "accent-yellow": "#F2D824",
-                },
-                fontFamily: {
-                    "display": ["Plus Jakarta Sans", "sans-serif"]
-                },
-                borderRadius: {
-                    "DEFAULT": "0.5rem",
-                    "lg": "1rem",
-                    "xl": "1.5rem",
-                    "full": "9999px"
-                },
-            },
-        },
-    }
-</script>
-<style type="text/tailwindcss">
-    body {
-        font-family: "Plus Jakarta Sans", sans-serif;
-    }
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 1.5rem;
-    }
-</style>
-
-
-
 <body>
-
-<!-- ✅ GỌI HEADER -->
 <div th:replace="layout/header :: header"></div>
-
 <main class="max-w-[1280px] mx-auto flex flex-col md:flex-row gap-8 px-6 py-8">
-    <aside class="w-full md:w-64 flex-shrink-0">
-        <div class="sticky top-24 space-y-6">
-            <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-2xl flex items-center gap-3 border border-primary/10">
-                <div class="size-10 bg-primary rounded-full flex items-center justify-center text-white">
-                    <span class="material-symbols-outlined">restaurant_menu</span>
-                </div>
-                <div>
-                    <h3 class="font-bold text-sm">Danh Mục</h3>
-                    <p class="text-xs text-primary/70">Khám phá thực đơn</p>
-                </div>
-            </div>
-
-            <div th:replace="layout/menu :: body"></div>
-        </div>
-    </aside>
-
+    <div th:replace="layout/menu :: menu"></div>
     <section class="flex-1">
         <div class="flex items-center justify-between mb-8 overflow-x-auto pb-2">
-            <div class="flex gap-2">
-                <button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold whitespace-nowrap">
-                    Tất cả
-                </button>
-                <button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-xs font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors">
-                    Gà Rán <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
-                </button>
-                <button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-xs font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors">
-                    Burger <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
-                </button>
-                <button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-xs font-semibold whitespace-nowrap hover:bg-gray-200 transition-colors">
-                    Pizza <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
-                </button>
-            </div>
             <div class="hidden sm:flex items-center gap-2">
                 <span class="text-xs font-medium text-gray-500">Sắp xếp:</span>
                 <select class="text-xs font-bold border-none bg-transparent focus:ring-0 p-0 pr-6">
@@ -94,141 +31,21 @@
                 </select>
             </div>
         </div>
-<!--        <h2 class="text-2xl font-extrabold mb-8 flex items-center gap-2">-->
-<!--            Combo Tiết Kiệm-->
-<!--            <span class="h-1.5 w-1.5 rounded-full bg-primary"></span>-->
-<!--        </h2>-->
-
-
-
-<!--        <div class="product-grid">-->
-<!--            <div class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">-->
-<!--                <div class="relative h-48 w-full overflow-hidden">-->
-<!--                    <div class="absolute top-3 left-3 z-10 bg-accent-yellow text-gray-900 text-[10px] font-black px-2 py-1 rounded-lg uppercase shadow-sm">Hot</div>-->
-<!--                    <img alt="Gà Rán Giòn Cay" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArC5Xoq-WJJeCjTmyKD_f6gIuxZbO_vmsn4sLUXtHDb6mFgqB2k_SQAbflLjzcnN1r_U6egNMZAYD9mQIQ5DRNP5djOC218jNCb78DOtdTCBdEjawJd5hI001-K2mDnquVavq8yQfDV1FoLg6KavOb2gx6Jo6P4I5pKBED20NG8Bt9t7yoIZ1HqXY8KymtlcyMJjgd0vwY4bREJ8Ui6F-IUd9RfYfURoJ_NDqedHHw8Ok7QeKL7Ro_aYihz24cMD13MHTAn04N4sxJ"/>-->
-<!--                </div>-->
-<!--                <div class="p-4">-->
-<!--                    <h3 class="font-extrabold text-lg leading-tight mb-1">Gà Rán Giòn Cay</h3>-->
-<!--                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1">2 miếng gà rán truyền thống, sốt cay đặc biệt.</p>-->
-<!--                    <div class="flex flex-col gap-3">-->
-<!--                        <span class="text-primary font-extrabold text-lg">35.000đ</span>-->
-<!--                        <button class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10">-->
-<!--                            <span class="material-symbols-outlined text-lg">info</span>-->
-<!--                            <span class="text-sm font-bold">-->
-<!--                            <a th:href="@{/product/detail}">-->
-<!--                                Xem chi tiết</a>-->
-<!--                            </span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">-->
-<!--                <div class="relative h-48 w-full overflow-hidden">-->
-<!--                    <div class="absolute top-3 left-3 z-10 bg-primary text-white text-[10px] font-black px-2 py-1 rounded-lg uppercase shadow-sm">Mới</div>-->
-<!--                    <img alt="Burger Bò Phô Mai" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJJEMbWGnXGHd7pkmt1bwjp3WfUX&#45;&#45;NX4-2j_nwFOFF1A2Tt2CKTsPZk5sFHyaQX5grXuUClEOU4N7_2Sdl9q4SvUWqR7EKWij9zNiFxyBMezJ1oWVmn62jm5zD6V39mXBEsqHn5LXvcXEFZa-p-N19vjcDna0WIbTWZsHOUEltnmLmKt1qOn1saE_vYdlxvEUR-kdBTrSVYphh8uw71bwzJml7cLpMg_k_XZzQ3ARdorSuOpTWRYoP0r4Tl-HJ-To6gwtewgKwFbn"/>-->
-<!--                </div>-->
-<!--                <div class="p-4">-->
-<!--                    <h3 class="font-extrabold text-lg leading-tight mb-1">Burger Bò Phô Mai</h3>-->
-<!--                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1">Bò Úc nướng, phô mai Cheddar, sốt BBQ.</p>-->
-<!--                    <div class="flex flex-col gap-3">-->
-<!--                        <span class="text-primary font-extrabold text-lg">55.000đ</span>-->
-<!--                        <button class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10">-->
-<!--                            <span class="material-symbols-outlined text-lg">info</span>-->
-<!--                            <span class="text-sm font-bold">Xem chi tiết</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">-->
-<!--                <div class="relative h-48 w-full overflow-hidden">-->
-<!--                    <img alt="Pizza Pepperoni" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_eRZ1yqrcKiitIxOcoUdxUYJN4AXxqltyVZDCxO3Hg9oBRNYesqDgp31vfnzlus__0uDLHs6mOqs06QBKNFGzcluYNVQfeFgc5JqXZ6-_lpE1wmYsn1Mhg7z5TY_edNjfj2gorAXarjGcq6Nk53G-zHCEx3y9bFSlLHDKAlSJFxNXvuEuWhMR0-eQIjg6R6yyZ2YTy_gBqm1l0pjCxTR&#45;&#45;e80ruwLpCwk5eH7bmIdNwfVeQb7ubv-iRcGxwTig4RxpbjveI96eipC"/>-->
-<!--                </div>-->
-<!--                <div class="p-4">-->
-<!--                    <h3 class="font-extrabold text-lg leading-tight mb-1">Pizza Pepperoni M</h3>-->
-<!--                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1">Xúc xích Ý, phô mai Mozzarella chảy.</p>-->
-<!--                    <div class="flex flex-col gap-3">-->
-<!--                        <span class="text-primary font-extrabold text-lg">129.000đ</span>-->
-<!--                        <button class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10">-->
-<!--                            <span class="material-symbols-outlined text-lg">info</span>-->
-<!--                            <span class="text-sm font-bold">Xem chi tiết</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">-->
-<!--                <div class="relative h-48 w-full overflow-hidden">-->
-<!--                    <img alt="Combo Gia Đình" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBexs9JoMrvrvV1CO7N4K1XNfDOBnpUqoCGfjnK-uyVwH7ZACIQe7RHP1CagR303qQAPsaNkxTZYPuH0azn03iCkrgwAHq9jkrqy8OvKvLJaMS-8RuN-iwE8ru00DbJm_JBuZtjmLVAKcLc0KA4vEGjCzekF8svWWQrAzI5VnmXWO3cwC8lQqz-iBZKPEMB9pvF8jhEl_QLpsocvNUMSpCyOFjJ0bIcuFqo8eyjXhN-QLB2Gty99O8TGdCPMrQLCsYCKII8pJsaEqt8"/>-->
-<!--                </div>-->
-<!--                <div class="p-4">-->
-<!--                    <h3 class="font-extrabold text-lg leading-tight mb-1">Combo Gia Đình</h3>-->
-<!--                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1">6 miếng gà, 2 khoai, 2 Pepsi, 1 Salad.</p>-->
-<!--                    <div class="flex flex-col gap-3">-->
-<!--                        <span class="text-primary font-extrabold text-lg">199.000đ</span>-->
-<!--                        <button class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10">-->
-<!--                            <span class="material-symbols-outlined text-lg">info</span>-->
-<!--                            <span class="text-sm font-bold">Xem chi tiết</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">-->
-<!--                <div class="relative h-48 w-full overflow-hidden">-->
-<!--                    <img alt="Trà Đào Sả" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1d-v4UZ4f793TLqhdWGKedp4LW0NEaMaw_sqfWxGP_LpwPvdiUKXG5A19gxhI1y59KRrZ7NTIh-QQjD_HGKuHJPkUqPX0XZS_LMNJcvnZ6d6oOEOYt0WHYmOefw59Qyv8hEx7YmHLUAakipGJq4IaAkHlYUTxb9Wgs_fxuf6rrNzjuZTCDaLNViDfW44T8SEXPQJMqjob6vJq1btlHlkw5cT5BvipdzB9tpsgBVrMMj8Yrdc_ihw2fdC-Vl4jIZaz0y_x_1E_tHrm"/>-->
-<!--                </div>-->
-<!--                <div class="p-4">-->
-<!--                    <h3 class="font-extrabold text-lg leading-tight mb-1">Trà Đào Sả</h3>-->
-<!--                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1">Trà đen, đào miếng, sả tươi thơm mát.</p>-->
-<!--                    <div class="flex flex-col gap-3">-->
-<!--                        <span class="text-primary font-extrabold text-lg">25.000đ</span>-->
-<!--                        <button class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10">-->
-<!--                            <span class="material-symbols-outlined text-lg">info</span>-->
-<!--                            <span class="text-sm font-bold">Xem chi tiết</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">-->
-<!--                <div class="relative h-48 w-full overflow-hidden">-->
-<!--                    <img alt="Khoai Tây Chiên" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrpXChgN_wRpir42JSzzHuWJaBRArlM29Hb2UGMYvepDfomKrgB5G46I4McFvpgniStGZZSi-1V8VuyBxPlznkHf3_w3Mzfq-xB3FT7MIu_vqxXWv6soTriOfgFMrpOX1SLuBtP34-5Z6n1ciytXepWgVhOpxI3KIkb6bRqi3KDfC6vLuXRHXNB8H2qmKVz2mxURpaQ7qii98AyBzZ0_1KqJpZvcsQteOlV_wzXdsMefQquDNYx0sUZXwrILVVrKMzyu3LB4dg-ORK"/>-->
-<!--                </div>-->
-<!--                <div class="p-4">-->
-<!--                    <h3 class="font-extrabold text-lg leading-tight mb-1">Khoai Tây Chiên L</h3>-->
-<!--                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1">Khoai tây cắt sợi chiên vàng giòn.</p>-->
-<!--                    <div class="flex flex-col gap-3">-->
-<!--                        <span class="text-primary font-extrabold text-lg">29.000đ</span>-->
-<!--                        <button class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10">-->
-<!--                            <span class="material-symbols-outlined text-lg">info</span>-->
-<!--                            <span class="text-sm font-bold">Xem chi tiết</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
 
         <div class="product-grid">
-            <div th:each="item : ${items}"
-                 class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
-
+            <div class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700" th:each="item : ${items}">
                 <div class="relative h-48 w-full overflow-hidden">
-                    <img th:src="${item.image}"
-                         th:alt="${item.name}"
-                         class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"/>
+                    <div class="absolute top-3 left-3 z-10 bg-accent-yellow text-gray-900 text-[10px] font-black px-2 py-1 rounded-lg uppercase shadow-sm">Hot</div>
+                    <img alt="Gà Rán Giòn Cay" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         th:alt="${item.itemName}"
+                         th:src="@{'/images/' + ${item.image}}"/>
                 </div>
-
                 <div class="p-4">
-                    <h3 class="font-extrabold text-lg mb-1"
-                        th:text="${item.name}"></h3>
-
-                    <p class="text-xs text-gray-500 mb-4 line-clamp-1"
-                       th:text="${item.description}"></p>
-
+                    <h3 class="font-extrabold text-lg leading-tight mb-1" th:text="${item.itemName}"></h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1" th:text="${item.description}"></p>
                     <div class="flex flex-col gap-3">
-                <span class="text-primary font-extrabold text-lg"
-                      th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'NONE')} + 'đ'"></span>
-
-                        <a th:href="@{/product/detail(id=${item.id})}"
-                           class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors">
+                        <span class="text-primary font-extrabold text-lg" th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'NONE')} + 'đ'"></span>
+                        <a class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10" th:href="@{/product/detail/{id}(id=${item.itemId})}">
                             <span class="material-symbols-outlined text-lg">info</span>
                             <span class="text-sm font-bold">Xem chi tiết</span>
                         </a>
@@ -236,7 +53,6 @@
                 </div>
             </div>
         </div>
-
         <div class="mt-12 flex justify-center">
             <button class="px-8 py-3 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">
                 Xem Thêm Món Ngon
@@ -244,8 +60,7 @@
         </div>
     </section>
 </main>
-
-<!-- ✅ GỌI footer -->
 <div th:replace="layout/footer :: footer"></div>
+
 </body>
 </html>

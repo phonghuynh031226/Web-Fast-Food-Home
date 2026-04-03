@@ -1,351 +1,142 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Đăng nhập - Đăng ký</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
-
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title></title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#f2200d",
-                        "background-light": "#fafaf9",
-                        "background-dark": "#1a1a1a",
-                        "accent-yellow": "#f2d824",
-                    },
-                    fontFamily: {
-                        "display": ["Plus Jakarta Sans", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.5rem",
-                        "lg": "1rem",
-                        "xl": "1.5rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-    <style>
-        .soft-shadow {
-            box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
-            transition: all 0.3s ease;
-        }
-    </style>
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#f2200d",
-                        "background-light": "#fafaf9",
-                        "background-dark": "#1a1a1a",
-                        "accent-yellow": "#f2d824",
-                    },
-                    fontFamily: {
-                        "display": ["Plus Jakarta Sans", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.5rem",
-                        "lg": "1rem",
-                        "xl": "1.5rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-    <style>
-        .soft-shadow {
-            box-shadow: 0 10px 30px -10px rgba(242, 32, 13, 0.12);
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(242, 32, 13, 0.2);
-            transition: all 0.3s ease;
-        }
-    </style>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #fafaf9;
-        }
-        .auth-card {
-            max-width: 1100px;
-            margin: 3rem auto;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(242,32,13,.1);
-            background: #fff;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .left-side {
-            flex: 1;
-            min-height: 350px;
-            background: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsrxPMqbKxSEb5hWFWxJiy4NpFkrTDFtXXwp74Rb_H-qbEy6M5lvLgBOicPriOF6uFaGaIPQt5v_7WKfsK5On9LQcCmIjMw3mUkkXv0lY4cXBJHbtGHwRa5cYIFVrLaWUqTtsjLheKbpo_O583k2nNNVetOSXqS3bRoZ6f7hiZ0I7Gz2-SNqK8tfe9pj0w7xZ84iIyR2eoyG2w4gJX6Tui5O1mtGYwOAecB9lPMcED9aSY__HkjclrGfor5TAEVSUXnmECSz3FaY_L")
-            center/cover no-repeat;
-            position: relative;
-        }
-        .left-side::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(242,32,13,.9), transparent);
-        }
-        .left-content {
-            position: absolute;
-            bottom: 2rem;
-            left: 2rem;
-            color: #fff;
-            z-index: 1;
-        }
-        .right-side {
-            flex: 1.4;
-            padding: 3rem;
-        }
-        .icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-        }
-        .input-wrapper {
-            position: relative;
-        }
-        .input-wrapper input {
-            padding-left: 2.75rem;
-        }
-        .btn-primary {
-            background: #f2200d;
-            border: none;
-        }
-        .btn-primary:hover {
-            background: #d91c0b;
-        }
-    </style>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/script.js}"></script>
 </head>
-
 <body>
 
-<div th:replace="layout/header :: header"></div>
-
-<div class="auth-card">
-
-    <!-- LEFT -->
-    <div class="left-side">
-        <div class="left-content">
-            <span class="badge bg-warning text-danger mb-2">MEMBER</span>
-            <h2 class="fw-bold">Hương vị tuyệt đỉnh</h2>
-            <p>Đăng ký để nhận ưu đãi 20%</p>
-        </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="right-side">
-        <h3 class="fw-bold">Chào mừng bạn!</h3>
-        <p class="text-muted mb-4">Bắt đầu trải nghiệm ngay hôm nay</p>
-
-        <!-- Tabs -->
-        <ul class="nav nav-tabs mb-4">
-            <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#login">Đăng nhập</button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#register">Đăng ký</button>
-            </li>
-        </ul>
-
-        <div class="tab-content">
-
-<!--            &lt;!&ndash; LOGIN &ndash;&gt;-->
-<!--            <div class="tab-pane fade show active" id="login">-->
-<!--                <form method="post" action="/auth/login">-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label>Email hoặc SĐT</label>-->
-<!--                        <div class="input-wrapper">-->
-<!--                            <span class="material-symbols-outlined icon">person</span>-->
-<!--                            <input name="username" class="form-control" required/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label>Mật khẩu</label>-->
-<!--                        <div class="input-wrapper">-->
-<!--                            <span class="material-symbols-outlined icon">lock</span>-->
-<!--                            <input type="password" name="password" class="form-control" required/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <p class="text-danger" th:text="${loginError}"></p>-->
-
-<!--                    <button class="btn btn-primary w-100">Đăng nhập</button>-->
-<!--                </form>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; REGISTER &ndash;&gt;-->
-<!--            <div class="tab-pane fade" id="register">-->
-<!--                <form method="post" action="/auth/register">-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label>Họ và tên</label>-->
-<!--                        <input name="fullname" class="form-control" required/>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label>Email</label>-->
-<!--                        <input name="email" class="form-control" required/>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label>Mật khẩu</label>-->
-<!--                        <input type="password" name="password" class="form-control" required/>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3 form-check">-->
-<!--                        <input class="form-check-input" type="checkbox" required>-->
-<!--                        <label class="form-check-label">Tôi đồng ý điều khoản</label>-->
-<!--                    </div>-->
-
-<!--                    <p class="text-danger" th:text="${registerError}"></p>-->
-
-<!--                    <button class="btn btn-primary w-100">Đăng ký</button>-->
-<!--                </form>-->
-<!--            </div>-->
-            <!-- LOGIN -->
-            <div class="tab-pane fade show active" id="login">
-                <form method="post" action="/auth/login">
-
-                    <div class="mb-3">
-                        <label>Email hoặc SĐT</label>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-outlined icon">person</span>
-                            <input
-                                    type="text"
-                                    name="emailOrPhone"
-                                    class="form-control"
-                                    placeholder="Email hoặc số điện thoại"
-                                    required>
+<div class="layout-container flex min-h-screen flex-col">
+    <div th:replace="layout/header :: header"></div>
+    <!-- Main Content Area -->
+    <main class="flex-1 flex items-center justify-center p-4 md:p-10">
+        <div class="w-full max-w-[1100px] flex flex-col md:flex-row bg-white dark:bg-[#242424] rounded-xl overflow-hidden auth-card-shadow border border-[#e8d1ce]/20 dark:border-white/5">
+            <!-- Left Side: Visual & Marketing -->
+            <div class="w-full md:w-5/12 relative hidden md:block group">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent z-10"></div>
+                <div class="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Góc nhìn cận cảnh chiếc bánh pizza hấp dẫn với phô mai tan chảy" style="background-image: url('/img/auth.jpg');">
+                </div>
+                <div class="absolute bottom-10 left-10 right-10 z-20 text-white">
+                    <div class="bg-accent-yellow text-primary px-3 py-1 rounded-full text-xs font-bold w-fit mb-4">MEMBER EXCLUSIVE</div>
+                    <h1 class="text-4xl font-black leading-tight mb-4">Hương vị tuyệt đỉnh, <br/>Đặt ngay nhận quà!</h1>
+                    <p class="text-white/90 text-sm leading-relaxed font-medium">Đăng ký tài khoản để nhận ngay ưu đãi giảm 20% cho đơn hàng đầu tiên của bạn.</p>
+                </div>
+            </div>
+            <!-- Right Side: Auth Forms -->
+            <div class="w-full md:w-7/12 p-8 md:p-14 flex flex-col justify-center">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-extrabold text-[#1c0e0d] dark:text-white mb-2">Chào mừng bạn!</h2>
+                    <p class="text-[#9c5049] dark:text-white/60 text-sm font-medium">Bắt đầu trải nghiệm ẩm thực tuyệt vời ngay hôm nay.</p>
+                </div>
+                <!-- Tabs Switcher -->
+                <div class="flex border-b border-[#e8d1ce] dark:border-white/10 mb-8 w-full">
+                    <button id="loginTab" class="flex-1 pb-4 text-sm font-bold border-b-2 border-primary text-[#1c0e0d] dark:text-white">Đăng nhập</button>
+                    <button id="registerTab" class="flex-1 pb-4 text-sm font-bold border-b-2 border-transparent text-[#9c5049] hover:text-[#1c0e0d] dark:text-white/40 dark:hover:text-white transition-all">Đăng ký</button>
+                </div>
+                <!-- Form -->
+                <form id="loginForm" class="space-y-5" onsubmit="event.preventDefault();">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Email hoặc Số điện thoại</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9c5049] dark:text-white/40">person</span>
+                            <input class="w-full pl-12 pr-4 py-3.5 bg-[#fcf8f8] dark:bg-white/5 border border-[#e8d1ce] dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-[#1c0e0d] dark:text-white placeholder:text-[#9c5049]/50" placeholder="name@example.com" type="text"/>
                         </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label>Mật khẩu</label>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-outlined icon">lock</span>
-                            <input
-                                    type="password"
-                                    name="password"
-                                    class="form-control"
-                                    placeholder="Mật khẩu"
-                                    required>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Mật khẩu</label>
+                            <a class="text-xs font-bold text-primary hover:underline" th:href="@{/forgot-password}">Quên mật khẩu?</a>
+                        </div>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9c5049] dark:text-white/40">lock</span>
+                            <input class="w-full pl-12 pr-4 py-3.5 bg-[#fcf8f8] dark:bg-white/5 border border-[#e8d1ce] dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-[#1c0e0d] dark:text-white placeholder:text-[#9c5049]/50" placeholder="••••••••" type="password"/>
+                            <button class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9c5049] hover:text-[#1c0e0d] dark:text-white/40" type="button">
+                                <span class="material-symbols-outlined">visibility</span>
+                            </button>
                         </div>
                     </div>
-
-                    <p class="text-danger" th:text="${error}"></p>
-
-                    <button type="submit" class="btn btn-primary w-100">
-                        Đăng nhập
+                    <div class="flex items-center gap-2 py-1">
+                        <input class="rounded border-[#e8d1ce] text-primary focus:ring-primary size-4" id="remember" type="checkbox"/>
+                        <label class="text-sm font-medium text-[#9c5049] dark:text-white/60 cursor-pointer" for="remember">Ghi nhớ đăng nhập</label>
+                    </div>
+                    <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]">
+                        Đăng nhập ngay
                     </button>
                 </form>
-            </div>
-
-            <!-- REGISTER -->
-            <div class="tab-pane fade" id="register">
-                <form method="post" action="/auth/register">
-
-                    <div class="mb-3">
-                        <label>Họ và tên</label>
-                        <input
-                                type="text"
-                                name="fullName"
-                                class="form-control"
-                                placeholder="Nguyễn Văn A"
-                                required>
+                <form id="registerForm" class="space-y-4 hidden" onsubmit="event.preventDefault();">
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Họ và tên</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9c5049] dark:text-white/40">badge</span>
+                            <input class="w-full pl-12 pr-4 py-3 bg-[#fcf8f8] dark:bg-white/5 border border-[#e8d1ce] dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-[#1c0e0d] dark:text-white placeholder:text-[#9c5049]/50" placeholder="Nguyễn Văn A" type="text"/>
+                        </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label>Email</label>
-                        <input
-                                type="email"
-                                name="email"
-                                class="form-control"
-                                placeholder="email@example.com"
-                                required>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Email hoặc Số điện thoại</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9c5049] dark:text-white/40">mail</span>
+                            <input class="w-full pl-12 pr-4 py-3 bg-[#fcf8f8] dark:bg-white/5 border border-[#e8d1ce] dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-[#1c0e0d] dark:text-white placeholder:text-[#9c5049]/50" placeholder="example@gmail.com" type="text"/>
+                        </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label>Số điện thoại</label>
-                        <input
-                                type="text"
-                                name="phone"
-                                class="form-control"
-                                placeholder="0123456789"
-                                required>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Mật khẩu</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9c5049] dark:text-white/40">lock</span>
+                            <input class="w-full pl-12 pr-4 py-3 bg-[#fcf8f8] dark:bg-white/5 border border-[#e8d1ce] dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-[#1c0e0d] dark:text-white placeholder:text-[#9c5049]/50" placeholder="••••••••" type="password"/>
+                            <button class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9c5049] hover:text-[#1c0e0d] dark:text-white/40" type="button">
+                                <span class="material-symbols-outlined">visibility</span>
+                            </button>
+                        </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label>Mật khẩu</label>
-                        <input
-                                type="password"
-                                name="password"
-                                class="form-control"
-                                required>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Xác nhận mật khẩu</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9c5049] dark:text-white/40">enhanced_encryption</span>
+                            <input class="w-full pl-12 pr-4 py-3 bg-[#fcf8f8] dark:bg-white/5 border border-[#e8d1ce] dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-[#1c0e0d] dark:text-white placeholder:text-[#9c5049]/50" placeholder="••••••••" type="password"/>
+                        </div>
                     </div>
-
-                    <div class="mb-3 form-check">
-                        <input class="form-check-input" type="checkbox" required>
-                        <label class="form-check-label">
-                            Tôi đồng ý điều khoản
+                    <div class="flex items-start gap-2 py-2">
+                        <input class="mt-1 rounded border-[#e8d1ce] text-primary focus:ring-primary size-4" id="terms" type="checkbox"/>
+                        <label class="text-xs font-medium text-[#9c5049] dark:text-white/60 cursor-pointer" for="terms">
+                            Tôi đồng ý với các <a class="text-primary hover:underline" href="#">Điều khoản dịch vụ</a> và <a class="text-primary hover:underline" href="#">Chính sách bảo mật</a>.
                         </label>
                     </div>
-
-                    <p class="text-danger" th:text="${registerError}"></p>
-
-                    <button type="submit" class="btn btn-success w-100">
-                        Đăng ký
+                    <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98] mt-2">
+                        Đăng ký ngay
                     </button>
                 </form>
+                <!-- Divider -->
+                <div class="relative flex items-center gap-4 my-8">
+                    <div class="flex-grow border-t border-[#e8d1ce] dark:border-white/10"></div>
+                    <span class="text-xs font-bold text-[#9c5049] dark:text-white/40 uppercase tracking-widest">Hoặc tiếp tục với</span>
+                    <div class="flex-grow border-t border-[#e8d1ce] dark:border-white/10"></div>
+                </div>
+                <!-- Social Login -->
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="flex items-center justify-center gap-3 px-4 py-3 border border-[#e8d1ce] dark:border-white/10 rounded-lg hover:bg-[#fcf8f8] dark:hover:bg-white/5 transition-all">
+                        <img alt="Google Logo" class="size-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwjQaKm-tcIJVzd464RgCtaJWTv9Ryk8QnIMrWccK7YKUiRusX5ecY8TlbEzCMOGhpjpYSgs8_H4okdu6HKvVrTbK2BWSTbMeWhsz7Dc2ckstAx7xEUy2E7zybpP6IHn4Iibc3KWN0MzdDENq-K-39gZ3jwQUtN2Ty25wtDL4PsxxwVC_Tup4gg6ApsEcsQNRypOVEB2FAMPrXglzIrrFz3Gg58KX76WgktMNq0IKKEcc_CGw4w8EVtr6sILJGrguJqJrLvlrL6rX3"/>
+                        <span class="text-sm font-bold text-[#1c0e0d] dark:text-white">Google</span>
+                    </button>
+                    <button class="flex items-center justify-center gap-3 px-4 py-3 border border-[#e8d1ce] dark:border-white/10 rounded-lg hover:bg-[#fcf8f8] dark:hover:bg-white/5 transition-all">
+                        <img alt="Facebook Logo" class="size-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdzd9KkMLUCO58RFPKYTS6drWmUcC_nGZhGQSiobtAfPaqzX5zSdS0YNHaFXtVSHp1h-qVjnadn0cSoQ-Y_crF892UG3TZMU2i_tB1mVwC33Uih9WFxsNwBs8BY97b234RsZuYSvOK41aARv7CPa1-M1wHsIXfFIQmzLHjDsNQaLqL12OQuLaOoSGh8NsXuvs2VYD83skQgPhQdhyqjgP5qlUigzWwH9opLsSnnmybN0lGBat8vAwPjtCaeTNCtZy-biylM0XoYno9"/>
+                        <span class="text-sm font-bold text-[#1c0e0d] dark:text-white">Facebook</span>
+                    </button>
+                </div>
             </div>
-
         </div>
-    </div>
+    </main>
+    <div th:replace="layout/footer :: footer"></div>
 </div>
-
-
 </body>
 </html>
