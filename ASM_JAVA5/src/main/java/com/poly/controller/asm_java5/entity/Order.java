@@ -1,10 +1,14 @@
 package com.poly.controller.asm_java5.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Orders")
+@Data
 public class Order {
 
     @Id
@@ -12,68 +16,31 @@ public class Order {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @Column(name = "order_type")
-    private String orderType;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "payment_method")
-    private String paymentMethod;
+    @Column(name = "customer_name", nullable = false, length = 100)
+    private String customerName;
 
-    @Column(name = "note")
+    @Column(name = "phone", nullable = false, length = 20)
+    private String phone;
+
+    @Column(name = "address", nullable = false, length = 255)
+    private String address;
+
+    @Column(name = "note", length = 255)
     private String note;
 
-    @Column(name = "total_amount")
+    @Column(name = "payment_method", nullable = false, length = 20)
+    private String paymentMethod;
+
+    @Column(name = "total_amount", nullable = false)
     private Double totalAmount;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    // ===== getters & setters =====
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public Double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 }

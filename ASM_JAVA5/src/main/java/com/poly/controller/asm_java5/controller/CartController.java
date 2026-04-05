@@ -1,9 +1,6 @@
 package com.poly.controller.asm_java5.controller;
 
-import com.poly.controller.asm_java5.entity.MenuItem;
 import com.poly.controller.asm_java5.service.CartService;
-import com.poly.controller.asm_java5.service.MenuService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,31 +13,37 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @Autowired
-    private MenuService menuService;
-
-    @GetMapping
-    public String viewCart(HttpSession session, Model model) {
-        model.addAttribute("cart", cartService.getCart(session));
-        model.addAttribute("total", cartService.getTotalAmount(session));
-        return "cart/cart";
-    }
-
     @PostMapping("/add")
-    public String add(HttpSession session,
-                      @RequestParam Integer itemId,
-                      @RequestParam(defaultValue = "1") int quantity) {
-
-        MenuItem item = menuService.findItemById(itemId);
-        cartService.addItem(session, item, quantity);
+    public String addToCart(
+            @RequestParam("itemId") Integer itemId,
+            @RequestParam(value = "quantity", defaultValue = "1") Integer quantity
+    ) {
+        cartService.addToCart(itemId, quantity);
         return "redirect:/cart";
     }
 
-    @GetMapping("/remove/{itemId}")
-    public String remove(HttpSession session,
-                         @PathVariable Integer itemId) {
+    @GetMapping("")
+    public String cartPage(Model model) {
+        model.addAttribute("cart", cartService.getCartItems());
+        model.addAttribute("total", cartService.getCartTotal());
+        return "cart/cart";
+    }
 
-        cartService.removeItem(session, itemId);
+    @GetMapping("/remove/{id}")
+    public String removeItem(@PathVariable("id") Integer itemId) {
+        cartService.removeItem(itemId);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/increase/{id}")
+    public String increaseQuantity(@PathVariable("id") Integer itemId) {
+        cartService.increaseQuantity(itemId);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/decrease/{id}")
+    public String decreaseQuantity(@PathVariable("id") Integer itemId) {
+        cartService.decreaseQuantity(itemId);
         return "redirect:/cart";
     }
 }
