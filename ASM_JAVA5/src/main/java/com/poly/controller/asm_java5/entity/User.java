@@ -3,6 +3,8 @@ package com.poly.controller.asm_java5.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Users")
 @Data
@@ -30,4 +32,10 @@ public class User {
 
     @Column(name = "role", nullable = false, length = 20)
     private String role;
+
+    @Column(name = "otp_code", length = 10)
+    private String otpCode;
+
+    @Column(name = "otp_expiry")
+    private LocalDateTime otpExpiry;
 }

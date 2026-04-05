@@ -12,55 +12,83 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-//    @Autowired
-//    private AuthService authService;
-//
-//    // ===== LOGIN =====
-//    @GetMapping("/login")
-//    public String loginForm() {
-//        return "auth/auth";
-//    }
-//
-//    @PostMapping("/login")
-//    public String login(
-//            @RequestParam String emailOrPhone,
-//            @RequestParam String password,
-//            HttpSession session,
-//            Model model
-//    ) {
-//        User user = authService.login(emailOrPhone, password);
-//
-//        if (user != null) {
-//            session.setAttribute("user", user);
-//            return "redirect:/home";
-//        }
-//
-//        model.addAttribute("loginError", "Sai tài khoản hoặc mật khẩu");
-//        return "auth/auth";
-//    }
-//
-//    // ===== REGISTER =====
-//    @PostMapping("/register")
-//    public String register(
-//            @RequestParam("fullName") String fullName, // 👈 PHẢI ĐÚNG TÊN
-//            @RequestParam String email,
-//            @RequestParam String phone,
-//            @RequestParam String password,
-//            Model model
-//    ) {
-//        try {
-//            authService.register(fullName, email, phone, password);
-//            return "redirect:/auth/login";
-//        } catch (RuntimeException e) {
-//            model.addAttribute("registerError", e.getMessage());
-//            return "auth/auth";
-//        }
-//    }
-//
-//    // ===== LOGOUT =====
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate();
-//        return "redirect:/auth/login";
-//    }
+    @Autowired
+    private AuthService authService;
+
+    @GetMapping("/login")
+    public String authPage() {
+        return "auth/auth";
+    }
+
+    @PostMapping("/register")
+    public String register(
+            @RequestParam String fullName,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String confirmPassword,
+            Model model
+    ) {
+        String message = authService.register(fullName, email, password, confirmPassword);
+
+        if ("Đăng ký thành công".equals(message)) {
+            model.addAttribute("success", message);
+        } else {
+            model.addAttribute("registerError", message);
+            model.addAttribute("showRegister", true);
+        }
+
+        return "auth/auth";
+    }
+
+    @PostMapping("/login")
+    public String login(
+            @RequestParam String email,
+            @RequestParam String password,
+            HttpSession session,
+            Model model
+    ) {
+        User user = authService.login(email, password);
+
+        if (user == null) {
+            model.addAttribute("loginError", "Sai email hoặc mật khẩu");
+            return "auth/auth";
+        }
+
+        session.setAttribute("loggedInUser", user);
+
+        if ("admin".equalsIgnoreCase(user.getRole())) {
+            return "redirect:/admin/dashboard";
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/auth/login";
+    }
+
+
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "auth/forgot-password";
+    }
+
+    @PostMapping("/forgot-password/send-otp")
+    @ResponseBody
+    public String sendOtp(@RequestParam String email) {
+        return authService.sendOtpToEmail(email);
+    }
+
+    @PostMapping("/forgot-password/reset")
+    @ResponseBody
+    public String resetPasswordByOtp(
+            @RequestParam String email,
+            @RequestParam String otp,
+            @RequestParam String newPassword,
+            @RequestParam String confirmPassword
+    ) {
+        return authService.resetPasswordByOtp(email, otp, newPassword, confirmPassword);
+    }
 }
