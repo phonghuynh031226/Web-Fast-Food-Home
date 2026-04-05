@@ -10,14 +10,6 @@ website bán đồ ăn nhanh lấy cảm hứng từ các thương hiệu như *
 
 ---
 
-## giai đoạn 1
-- Xây dựng website theo mô hình **Spring Boot MVC**
-- Giao diện hiện đại, thân thiện người dùng
-- Hiển thị danh sách sản phẩm từ **database**
-- Phân chia công việc nhóm và quản lý tiến độ bằng **Trello**
-
----
-
 ## 🛠️ Công nghệ sử dụng
 - **Spring Boot MVC**
 - **Thymeleaf**
@@ -39,6 +31,7 @@ website bán đồ ăn nhanh lấy cảm hứng từ các thương hiệu như *
 
 ### Tỷ
 - Tích hợp dữ liệu backend vào UI
+- Làm các chức năng chính 
 
 
 
