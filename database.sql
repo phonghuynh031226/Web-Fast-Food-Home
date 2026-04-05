@@ -14,6 +14,10 @@ CREATE TABLE Users (
     role VARCHAR(20) NOT NULL
         CHECK (role IN ('admin', 'customer'))
 );
+ALTER TABLE Users DROP CONSTRAINT UQ__Users__B43B145F5D8C1810;
+ALTER TABLE Users
+ADD otp_code VARCHAR(10) NULL,
+    otp_expiry DATETIME NULL;
 
 CREATE TABLE Menus (
     menu_id INT IDENTITY(1,1) PRIMARY KEY,
