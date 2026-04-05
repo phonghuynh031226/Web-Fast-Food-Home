@@ -10,10 +10,4 @@ import java.util.List;
 @Service
 public class OrderQueryService {
 
-    @Autowired
-    private OrderItemRepository orderItemRepository;
-
-    public List<OrderItem> findItemsByOrder(Integer orderId) {
-        return orderItemRepository.findByOrder_OrderId(orderId);
-    }
 }

@@ -67,3 +67,73 @@ document.addEventListener("DOMContentLoaded", () => {
     goRegister.addEventListener("click", showRegister);
     goLogin.addEventListener("click", showLogin);
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".product-card");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+    const ITEMS_PER_LOAD = 20; // 5 dòng x 4 sản phẩm
+    let visibleCount = ITEMS_PER_LOAD;
+
+    function updateProducts() {
+        cards.forEach((card, index) => {
+            if (index < visibleCount) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // Kiểm tra xem nút Load More có ID này không trước khi thay đổi style để tránh lỗi
+        if (loadMoreBtn) {
+            if (visibleCount >= cards.length) {
+                loadMoreBtn.style.display = "none";
+            } else {
+                loadMoreBtn.style.display = "inline-block";
+            }
+        }
+    }
+
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener("click", function () {
+            visibleCount += ITEMS_PER_LOAD;
+            updateProducts();
+        });
+    }
+
+    updateProducts();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const decreaseBtn = document.getElementById("decreaseQty");
+    const increaseBtn = document.getElementById("increaseQty");
+    const quantityValue = document.getElementById("quantityValue");
+    const quantityInput = document.getElementById("quantityInput");
+
+    // Kiểm tra xem các phần tử có tồn tại trên trang không trước khi chạy code
+    if (decreaseBtn && increaseBtn && quantityValue && quantityInput) {
+
+        let quantity = parseInt(quantityInput.value) || 1;
+
+        function renderQuantity() {
+            quantityValue.textContent = quantity;
+            quantityInput.value = quantity;
+        }
+
+        increaseBtn.addEventListener("click", function () {
+            quantity++;
+            renderQuantity();
+        });
+
+        decreaseBtn.addEventListener("click", function () {
+            if (quantity > 1) {
+                quantity--;
+                renderQuantity();
+            }
+        });
+
+        // Khởi tạo giá trị ban đầu
+        renderQuantity();
+    }
+});

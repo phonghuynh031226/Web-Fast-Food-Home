@@ -108,64 +108,51 @@
         <section class="mb-16">
             <div class="flex items-center justify-between mb-8 px-2">
                 <h2 class="text-3xl font-extrabold tracking-tight">Bán Chạy Nhất</h2>
-                <a class="text-primary font-bold flex items-center gap-1 hover:underline" href="#">
+                <a class="text-primary font-bold flex items-center gap-1 hover:underline" th:href="@{/product}">
                     Xem tất cả
                     <span class="material-symbols-outlined text-lg">chevron_right</span>
                 </a>
             </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+                <div th:each="best : ${bestSellers}"
+                     class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+
                     <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="absolute top-2 right-2 bg-accent-yellow text-[#1c0e0d] text-[10px] font-black px-2 py-1 rounded-lg uppercase">HOT</div>
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1kI_UKSmL4klHqxELKWEx6JLG66yBryTlbCerrN2aW3F3JG1WsGleVRLBXr7endziK695ZSU7axyYrY3dnYHdGAoQwTKCWvf2jiCrySr-2wixWKq6P2QInOr3kHeZrZjFsHYb0a3ThPda-BOHaMK_RvbBQ1LMwpuCFhR_04dmaJO-_rqKhjtDiIRA0DGX4sVUp3OgI_pJZp_wTGJmQCowYCu5K0L05ZzxS8NedNOH2gvD9kEGq5xJAo7_rVBjnkWysipZSz79wlhM');"></div>
+                        <div class="absolute top-2 right-2 bg-accent-yellow text-[#1c0e0d] text-[10px] font-black px-2 py-1 rounded-lg uppercase">
+                            HOT
+                        </div>
+
+                        <a th:href="@{/product/detail/{id}(id=${best.menuItem.itemId})}"
+                           class="absolute inset-0 z-10"></a>
+
+                        <div class="w-full h-full bg-cover bg-center"
+                             th:style="'background-image: url(' + @{/img/{img}(img=${best.menuItem.image})} + ');'">
+                        </div>
                     </div>
-                    <h3 class="font-bold text-lg mb-1">Combo Gà Giòn Cay A</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">2 miếng gà rán, 1 khoai tây chiên size M, 1 Pepsi mát lạnh.</p>
+
+                    <h3 class="font-bold text-lg mb-1" th:text="${best.menuItem.itemName}">Tên món</h3>
+
+                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2"
+                       th:text="${best.menuItem.description}">
+                        Mô tả
+                    </p>
+
                     <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">129.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXOje9dAY3x0kLs0Pfk3sR4S661JDBml5wRWF1caSyTnV0SxYiapY8S2iNFNkuDS8wJNcn7ax0TKLOmVb1_Ksk-YRN5ULRrySkmzodE_CDbE-M08w3gcY2-WCbLPawTkQ-BmM3zkJue_kjUit1eqZ_R3XAyvDzriSloI5aO-CY25S_xSvWtnzeHOD4SI09pY7W77xoLQA63TKeyiOKGXij9Fe4yAqpmxPH766AChzNKhPe0TU8gMtXPkx_9HowLjs8d-YlmGo09Av3');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Burger Bò Phô Mai</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Bò nướng lửa hồng, phô mai Cheddar tan chảy và rau tươi.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">89.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBb3ds94bwmJUPNqCloZ8ixFNqG1hcR3TCvNlBUGd89F-BNN8XSvn9vuhwUWdQSvY9GU0ejMb6SV5Uto5oClabO6eH6-5tx7eCv6vYPaULq1nxhaFnetdFQ-C0HY-c4FbeCBfi9mH83Xlper6tUdR_ePfVJwjQYRrk_nZjXRVsTe8DxxJyCMZES4m9YP_8y-I6RKh5fZuO1d27myy5XhPib4FY2W2ogIVbATEB6YnxkEAmU1LcrZul9dWOXcXfHnequN29tUVLouZOn');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Pizza Hải Sản Sốt Pesto</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Tôm bóc vỏ, mực, thanh cua cùng sốt Pesto đặc biệt.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">245.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="absolute top-2 right-2 bg-primary text-white text-[10px] font-black px-2 py-1 rounded-lg uppercase">-15%</div>
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByRCmchit19dZS48tQJfdeMZ_It_eWp68cQSTG2J7ej5ubuKaQ4-k7ysCaxemGjsyBDGCV9Nc4ssP72ainZ_PxabsT_MLgaT040VIthD7Nz9JMBoJpZ2xGwW3lTNBDwCk1MBq14a2svYH0rMwyy5hLOsTOdIikDUptyee-uRI3ZyZFm2K2wn1ZRV2M_vq3z3RzbHg2TlPzOh48Lq-LbR-Jj_NVdgyA_IceTIpniznz7xmrknLK9yOFMEHfPJ8bUXkkiRRyu8zPQaxj');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Gà Nuggets (9 miếng)</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Gà viên giòn rụm đi kèm sốt mù tạt mật ong hấp dẫn.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">65.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
+            <span class="text-xl font-black text-primary"
+                  th:text="${#numbers.formatDecimal(best.menuItem.price, 0, 'COMMA', 0, 'POINT')} + 'đ'">
+                50.000đ
+            </span>
+
+                        <form th:action="@{/cart/add}" method="post">
+                            <input type="hidden" name="itemId" th:value="${best.menuItem.itemId}">
+                            <input type="hidden" name="quantity" value="1">
+
+                            <button type="submit"
+                                    class="relative z-20 size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
+                                <span class="material-symbols-outlined">add</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -173,114 +160,44 @@
         <section class="mb-16">
             <div class="flex items-center justify-between mb-8 px-2">
                 <h2 class="text-3xl font-extrabold tracking-tight">Sản Phẩm Khác</h2>
-                <a class="text-primary font-bold flex items-center gap-1 hover:underline" href="#">
+                <a class="text-primary font-bold flex items-center gap-1 hover:underline" th:href="@{/product}">
                     Xem tất cả
                     <span class="material-symbols-outlined text-lg">chevron_right</span>
                 </a>
             </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+                <div th:each="item : ${otherProducts}"
+                     class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
+
                     <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnb5Qeb6U2ZSM3xONSHF6albxY8jY-exRhRYLClbKWELtfvf40YG3s3RCU8RS1EAbHZi4AwD-OXkg1BUJ3SD_AXKBnwVDuEy0C0oLn7aDIni7ZxE2kCxQT28ikCGde_5ytJQekXbLMOGZravlx83ACnfLDaN2FNlDL0DxQu1FyqmUBCEpn3St1bTfEildbXVA5Eq-oFFJXqhHn2sbN52uHu_Gddv4jBkCLASaFgwVq4v-rSOdi2_SzoqB-yRM5EqjwW0Z-u_6AaYTM');"></div>
+                        <a th:href="@{/product/detail/{id}(id=${item.itemId})}" class="absolute inset-0 z-10"></a>
+                        <div class="w-full h-full bg-cover bg-center"
+                             th:style="'background-image: url(' + @{/img/{img}(img=${item.image})} + ');'">
+                        </div>
                     </div>
-                    <h3 class="font-bold text-lg mb-1">Gà Rán Sốt Cay</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Gà giòn phủ lớp sốt cay nồng đặc trưng, kích thích vị giác.</p>
+
+                    <h3 class="font-bold text-lg mb-1" th:text="${item.itemName}">Tên món</h3>
+                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2"
+                       th:text="${item.description}">
+                        Mô tả
+                    </p>
+
                     <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">39.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAn-p0wJpS265n7Vq_p-eT8_Tz_vG7Y8s0-E9_U_M2O-F7u890f_q-e-u_Y-z-U-u-U-v-E-t-e-R-v-B-z-E-L-I-T-E-f-o-o-d-0');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Khoai Tây Chiên Phô Mai</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Khoai tây chiên giòn rụm phủ bột phô mai thơm ngậy.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">45.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1_Yq9vX-n_T-E8L_9-Y-v-u_x-E-u-U-z-v-B-z-E-L-I-T-E-f-o-o-d-2');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Trà Đào Cam Sả</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Thức uống giải nhiệt với đào miếng, cam tươi và hương sả.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">35.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_U-v-u_x-E-u-U-z-v-B-z-E-L-I-T-E-f-o-o-d-3');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Mì Ý Sốt Bò Bằm</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Mì Ý dai ngon cùng sốt cà chua thịt bò bằm đậm đà.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">59.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1kI_UKSmL4klHqxELKWEx6JLG66yBryTlbCerrN2aW3F3JG1WsGleVRLBXr7endziK695ZSU7axyYrY3dnYHdGAoQwTKCWvf2jiCrySr-2wixWKq6P2QInOr3kHeZrZjFsHYb0a3ThPda-BOHaMK_RvbBQ1LMwpuCFhR_04dmaJO-_rqKhjtDiIRA0DGX4sVUp3OgI_pJZp_wTGJmQCowYCu5K0L05ZzxS8NedNOH2gvD9kEGq5xJAo7_rVBjnkWysipZSz79wlhM');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Cánh Gà BBQ</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Cánh gà nướng sốt BBQ đậm đà, thơm lừng vị khói.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">79.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXOje9dAY3x0kLs0Pfk3sR4S661JDBml5wRWF1caSyTnV0SxYiapY8S2iNFNkuDS8wJNcn7ax0TKLOmVb1_Ksk-YRN5ULRrySkmzodE_CDbE-M08w3gcY2-WCbLPawTkQ-BmM3zkJue_kjUit1eqZ_R3XAyvDzriSloI5aO-CY25S_xSvWtnzeHOD4SI09pY7W77xoLQA63TKeyiOKGXij9Fe4yAqpmxPH766AChzNKhPe0TU8gMtXPkx_9HowLjs8d-YlmGo09Av3');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Burger Gà Giòn</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Nhân gà chiên xù giòn tan kết hợp cùng sốt Mayo đặc biệt.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">55.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBb3ds94bwmJUPNqCloZ8ixFNqG1hcR3TCvNlBUGd89F-BNN8XSvn9vuhwUWdQSvY9GU0ejMb6SV5Uto5oClabO6eH6-5tx7eCv6vYPaULq1nxhaFnetdFQ-C0HY-c4FbeCBfi9mH83Xlper6tUdR_ePfVJwjQYRrk_nZjXRVsTe8DxxJyCMZES4m9YP_8y-I6RKh5fZuO1d27myy5XhPib4FY2W2ogIVbATEB6YnxkEAmU1LcrZul9dWOXcXfHnequN29tUVLouZOn');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Pizza Phô Mai 3 Loại</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Sự kết hợp tuyệt vời của Mozzarella, Cheddar và Parmesan.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">185.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-[#2a2a2a] p-4 rounded-3xl soft-shadow card-hover flex flex-col">
-                    <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#f4e8e7] mb-4">
-                        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByRCmchit19dZS48tQJfdeMZ_It_eWp68cQSTG2J7ej5ubuKaQ4-k7ysCaxemGjsyBDGCV9Nc4ssP72ainZ_PxabsT_MLgaT040VIthD7Nz9JMBoJpZ2xGwW3lTNBDwCk1MBq14a2svYH0rMwyy5hLOsTOdIikDUptyee-uRI3ZyZFm2K2wn1ZRV2M_vq3z3RzbHg2TlPzOh48Lq-LbR-Jj_NVdgyA_IceTIpniznz7xmrknLK9yOFMEHfPJ8bUXkkiRRyu8zPQaxj');"></div>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Kem Sundae Dâu</h3>
-                    <p class="text-xs text-[#9c5049] dark:text-[#a0a0a0] mb-4 line-clamp-2">Kem tươi vani mịn màng phủ sốt dâu tây ngọt ngào.</p>
-                    <div class="mt-auto flex items-center justify-between">
-                        <span class="text-xl font-black text-primary">25.000đ</span>
-                        <button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
+                <span class="text-xl font-black text-primary"
+                      th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + 'đ'">
+                    50.000đ
+                </span>
+
+                        <form th:action="@{/cart/add}" method="post">
+                            <input type="hidden" name="itemId" th:value="${item.itemId}">
+                            <input type="hidden" name="quantity" value="1">
+
+                            <button type="submit"
+                                    class="relative z-20 size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-colors">
+                                <span class="material-symbols-outlined">add</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

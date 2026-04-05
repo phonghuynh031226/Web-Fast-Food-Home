@@ -37,22 +37,28 @@
         <!-- Item 1 -->
         <div class="group flex flex-col sm:flex-row items-center gap-6 p-6 bg-white dark:bg-[#252525] rounded-xl border border-[#e8d1ce] dark:border-[#333] hover:shadow-xl hover:shadow-primary/5 transition-all" th:each="entry : ${cart}">
           <div class="w-24 h-24 bg-gray-100 dark:bg-[#333] rounded-lg overflow-hidden flex-shrink-0">
-            <div class="w-full h-full bg-cover bg-center" data-alt="Fried chicken pieces with spicy coating" th:style="'background-image:url(' + ${entry.value.item.image} + ')'"></div>
+            <div class="w-full h-full bg-cover bg-center"
+                 th:style="'background-image:url(' + @{/img/{img}(img=${entry.value.item.image})} + ')'">
+            </div>
           </div>
           <div class="flex-1 flex flex-col gap-1">
             <h3 class="text-xl font-bold dark:text-white" th:text="${entry.value.item.itemName}"></h3>
             <div class="mt-4 flex items-center gap-6">
               <div class="flex items-center border border-[#e8d1ce] dark:border-[#444] rounded-lg overflow-hidden">
-                <button class="p-1.5 px-3 hover:bg-[#f4e8e7] dark:hover:bg-[#333] text-primary">
+                <a th:href="@{/cart/decrease/{id}(id=${entry.key})}"
+                   class="p-1.5 px-3 hover:bg-[#f4e8e7] dark:hover:bg-[#333] text-primary">
                   <span class="material-symbols-outlined text-[18px]">remove</span>
-                </button>
-                <span class="px-4 font-bold text-sm">th:text="${entry.value.quantity}"</span>
-                <span class="px-4 font-bold text-sm" ></span>
-                <button class="p-1.5 px-3 hover:bg-[#f4e8e7] dark:hover:bg-[#333] text-primary">
+                </a>
+
+                <span class="px-4 font-bold text-sm" th:text="${entry.value.quantity}"></span>
+
+                <a th:href="@{/cart/increase/{id}(id=${entry.key})}"
+                   class="p-1.5 px-3 hover:bg-[#f4e8e7] dark:hover:bg-[#333] text-primary">
                   <span class="material-symbols-outlined text-[18px]">add</span>
-                </button>
+                </a>
               </div>
-              <a class="text-xs font-bold text-[#9c5049] dark:text-white/40 flex items-center gap-1 hover:text-primary transition-colors uppercase tracking-wider" th:href="@{/cart/remove/{id}(id=${entry.key})}">
+              <a class="text-xs font-bold text-[#9c5049] dark:text-white/40 flex items-center gap-1 hover:text-primary transition-colors uppercase tracking-wider"
+                 th:href="@{/cart/remove/{id}(id=${entry.key})}">
                 <span class="material-symbols-outlined text-[16px]">delete</span>
                 Xóa
               </a>
@@ -74,16 +80,12 @@
                 <span class="text-[#9c5049] dark:text-white/60 font-medium">Tạm tính</span>
                 <span class="text-[#1c0e0d] dark:text-white font-bold" th:text="${#numbers.formatDecimal(total,0,'COMMA',0,'POINT')} + 'đ'"></span>
               </div>
-              <div class="flex justify-between items-center">
-                <span class="text-[#9c5049] dark:text-white/60 font-medium">Phí giao hàng</span>
-                <span class="text-[#1c0e0d] dark:text-white font-bold">15.000đ</span>
-              </div>
             </div>
             <div class="border-t border-dashed border-[#e8d1ce] dark:border-[#444] pt-6 mb-8">
               <div class="flex justify-between items-end">
                 <span class="text-lg font-bold dark:text-white">Tổng cộng</span>
                 <div class="text-right">
-                  <span class="text-3xl font-black text-primary" th:text="${#numbers.formatDecimal(total + 15000,0,'COMMA',0,'POINT')} + 'đ'"></span>
+                  <span class="text-3xl font-black text-primary" th:text="${#numbers.formatDecimal(total,0,'COMMA',0,'POINT')} + 'đ'"></span>
                   <p class="text-[10px] text-[#9c5049] dark:text-white/40 uppercase font-bold tracking-widest mt-1">(Đã bao gồm VAT)</p>
                 </div>
               </div>
@@ -98,7 +100,7 @@
           <div class="bg-[#f4e8e7] dark:bg-white/5 p-4 flex gap-3">
             <span class="material-symbols-outlined text-primary text-[20px]">local_shipping</span>
             <p class="text-xs leading-relaxed text-[#9c5049] dark:text-white/60">
-              Miễn phí vận chuyển cho đơn hàng từ <span class="font-bold">500.000đ</span>. Thời gian giao hàng dự kiến: 20-30 phút.
+              Thời gian giao hàng dự kiến: 20-30 phút.
             </p>
           </div>
         </div>

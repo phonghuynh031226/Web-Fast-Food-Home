@@ -9,13 +9,21 @@
                 <p class="text-xs text-primary/70">Khám phá thực đơn</p>
             </div>
         </div>
+
         <nav class="flex flex-col gap-2">
             <a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
-               th:classappend="${param.menuId == m.menuId} ? 'bg-primary/10 text-primary font-bold' : ''"
+               th:classappend="${selectedMenuId == null} ? 'bg-primary/10 text-primary font-bold' : ''"
+               th:href="@{/product/list(sort=${selectedSort})}">
+                <span class="material-symbols-outlined">apps</span>
+                <span class="text-sm font-medium">Tất cả</span>
+            </a>
+
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
                th:each="m : ${menus}"
-               th:href="@{/product/list(menuId=${m.menuId})}">
+               th:classappend="${selectedMenuId == m.menuId} ? 'bg-primary/10 text-primary font-bold' : ''"
+               th:href="@{/product/list(menuId=${m.menuId}, sort=${selectedSort})}">
                 <span class="material-symbols-outlined">lunch_dining</span>
-                <span class="text-sm font-medium"  th:text="${m.menuName}"></span>
+                <span class="text-sm font-medium" th:text="${m.menuName}"></span>
             </a>
         </nav>
     </div>
