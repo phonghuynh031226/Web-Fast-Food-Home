@@ -2,6 +2,7 @@ package com.poly.controller.asm_java5.controller;
 
 import com.poly.controller.asm_java5.entity.User;
 import com.poly.controller.asm_java5.service.AuthService;
+import com.poly.controller.asm_java5.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,18 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private CartService cartService;
+
     @GetMapping("/login")
-    public String authPage() {
+    public String authPage(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if ("admin".equalsIgnoreCase(user.getRole())) {
+                return "redirect:/admin/dashboard";
+            }
+            return "redirect:/";
+        }
         return "auth/auth";
     }
 
@@ -32,6 +43,7 @@ public class AuthController {
 
         if ("Đăng ký thành công".equals(message)) {
             model.addAttribute("success", message);
+            model.addAttribute("showRegister", false);
         } else {
             model.addAttribute("registerError", message);
             model.addAttribute("showRegister", true);
@@ -47,6 +59,14 @@ public class AuthController {
             HttpSession session,
             Model model
     ) {
+        User currentUser = (User) session.getAttribute("user");
+        if (currentUser != null) {
+            if ("admin".equalsIgnoreCase(currentUser.getRole())) {
+                return "redirect:/admin/dashboard";
+            }
+            return "redirect:/";
+        }
+
         User user = authService.login(email, password);
 
         if (user == null) {
@@ -54,7 +74,10 @@ public class AuthController {
             return "auth/auth";
         }
 
-        session.setAttribute("loggedInUser", user);
+        session.setAttribute("user", user);
+
+        // Merge giỏ tạm trong session vào database sau khi đăng nhập
+        cartService.mergeSessionCartToDatabase(session, user);
 
         if ("admin".equalsIgnoreCase(user.getRole())) {
             return "redirect:/admin/dashboard";
@@ -65,10 +88,10 @@ public class AuthController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
+        session.removeAttribute("user");
         session.invalidate();
         return "redirect:/auth/login";
     }
-
 
     @GetMapping("/forgot-password")
     public String forgotPasswordPage() {

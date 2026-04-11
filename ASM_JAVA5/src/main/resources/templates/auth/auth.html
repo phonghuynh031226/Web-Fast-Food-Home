@@ -41,11 +41,26 @@
                 </div>
                 <!-- Tabs Switcher -->
                 <div class="flex border-b border-[#e8d1ce] dark:border-white/10 mb-8 w-full">
-                    <button id="loginTab" class="flex-1 pb-4 text-sm font-bold border-b-2 border-primary text-[#1c0e0d] dark:text-white">Đăng nhập</button>
-                    <button id="registerTab" class="flex-1 pb-4 text-sm font-bold border-b-2 border-transparent text-[#9c5049] hover:text-[#1c0e0d] dark:text-white/40 dark:hover:text-white transition-all">Đăng ký</button>
+                    <button id="loginTab"
+                            type="button"
+                            class="flex-1 pb-4 text-sm font-bold transition-all"
+                            th:classappend="${showRegister} ? ' border-b-2 border-transparent text-[#9c5049] hover:text-[#1c0e0d] dark:text-white/40 dark:hover:text-white' : ' border-b-2 border-primary text-[#1c0e0d] dark:text-white'">
+                        Đăng nhập
+                    </button>
+
+                    <button id="registerTab"
+                            type="button"
+                            class="flex-1 pb-4 text-sm font-bold transition-all"
+                            th:classappend="${showRegister} ? ' border-b-2 border-primary text-[#1c0e0d] dark:text-white' : ' border-b-2 border-transparent text-[#9c5049] hover:text-[#1c0e0d] dark:text-white/40 dark:hover:text-white'">
+                        Đăng ký
+                    </button>
                 </div>
                 <!-- Form -->
-                <form id="loginForm" th:action="@{/auth/login}" method="post" class="space-y-5">
+                <form id="loginForm"
+                      th:action="@{/auth/login}"
+                      method="post"
+                      class="space-y-5"
+                      th:classappend="${showRegister} ? ' hidden' : ''">
                     <p th:if="${loginError}" th:text="${loginError}" class="text-red-500 text-sm font-medium"></p>
                     <p th:if="${success}" th:text="${success}" class="text-green-500 text-sm font-medium"></p>
                     <div class="space-y-2">
@@ -82,9 +97,11 @@
                         Đăng nhập ngay
                     </button>
                 </form>
-                <form id="registerForm" th:action="@{/auth/register}" method="post"
-                          class="space-y-4"
-                          th:classappend="${showRegister} ? '' : ' hidden'">
+                <form id="registerForm"
+                      th:action="@{/auth/register}"
+                      method="post"
+                      class="space-y-4"
+                      th:classappend="${showRegister} ? '' : ' hidden'">
                     <p th:if="${registerError}" th:text="${registerError}" class="text-red-500 text-sm font-medium"></p>
                     <div class="space-y-1.5">
                         <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Họ và tên</label>
@@ -161,5 +178,6 @@
     </main>
     <div th:replace="layout/footer :: footer"></div>
 </div>
+
 </body>
 </html>

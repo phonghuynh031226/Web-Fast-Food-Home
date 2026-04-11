@@ -39,19 +39,22 @@
                 <form class="space-y-6">
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Họ tên</label>
-                        <input class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium" type="text" value="Nguyễn Minh Hoàng"/>
+                        <input class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium" type="text"
+                               th:value="${user.fullName}"/>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Số điện thoại</label>
-                        <input class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium" type="tel" value="0901 234 567"/>
+                        <input class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium" type="tel"
+                               th:value="${user.phone}"/>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Email</label>
-                        <input class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium" type="email" value="hoang.nguyen@example.com"/>
+                        <input class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium" type="email"
+                               th:value="${user.email}"/>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Địa chỉ</label>
-                        <textarea class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium h-32 resize-none" placeholder="Nhập địa chỉ giao hàng của bạn...">123 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh</textarea>
+                        <textarea class="w-full bg-surface-container border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20 font-medium h-32 resize-none" placeholder="Nhập địa chỉ giao hàng của bạn..." th:text="${user.address}">123 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh</textarea>
                     </div>
                     <div class="pt-4">
                         <button class="w-full md:w-auto bg-primary text-white font-black uppercase text-xs tracking-widest px-10 py-4 rounded-lg shadow-lg shadow-primary/20 hover:scale-[0.98] transition-all">Cập nhật thông tin</button>
@@ -75,39 +78,31 @@
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-outline-variant/30">
-                        <tr class="group hover:bg-surface-container-high transition-colors">
-                            <td class="py-5 text-sm font-bold">#CU-89234</td>
-                            <td class="py-5 text-sm text-on-surface-variant">24/05/2024</td>
-                            <td class="py-5">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-green-100 text-green-800">Hoàn thành</span>
+                        <tr th:each="order : ${orders}" class="group hover:bg-surface-container-high transition-colors">
+                            <td class="py-5 text-sm font-bold"
+                                th:text="'#' + ${order.orderId}">
+                                #CU-89234
                             </td>
-                            <td class="py-5 text-sm font-black text-right">1.250.000đ</td>
-                        </tr>
-                        <tr class="group hover:bg-surface-container-high transition-colors">
-                            <td class="py-5 text-sm font-bold">#CU-89102</td>
-                            <td class="py-5 text-sm text-on-surface-variant">18/05/2024</td>
-                            <td class="py-5">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-blue-100 text-blue-800">Đang giao</span>
+
+                            <td class="py-5 text-sm text-on-surface-variant"
+                                th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy')}">
+                                24/05/2024
                             </td>
-                            <td class="py-5 text-sm font-black text-right">450.000đ</td>
-                        </tr>
-                        <tr class="group hover:bg-surface-container-high transition-colors">
-                            <td class="py-5 text-sm font-bold">#CU-88945</td>
-                            <td class="py-5 text-sm text-on-surface-variant">10/05/2024</td>
+
                             <td class="py-5">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-stone-200 text-stone-600">Đã hủy</span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-green-100 text-green-800"
+                  th:text="${order.paymentMethod}">
+                Hoàn thành
+            </span>
                             </td>
-                            <td class="py-5 text-sm font-black text-right">2.100.000đ</td>
-                        </tr>
-                        <tr class="group hover:bg-surface-container-high transition-colors">
-                            <td class="py-5 text-sm font-bold">#CU-88712</td>
-                            <td class="py-5 text-sm text-on-surface-variant">05/05/2024</td>
-                            <td class="py-5">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-green-100 text-green-800">Hoàn thành</span>
+
+                            <td class="py-5 text-sm font-black text-right"
+                                th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + 'đ'">
+                                1.250.000đ
                             </td>
-                            <td class="py-5 text-sm font-black text-right">890.000đ</td>
                         </tr>
                         </tbody>
+
                     </table>
                 </div>
             </section>

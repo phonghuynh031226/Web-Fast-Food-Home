@@ -46,6 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
             registerTab.classList.add("border-transparent", "text-[#9c5049]");
             loginText?.classList.add("hidden");
             goRegister?.parentElement.classList.remove("hidden");
+            // 👇 thêm đoạn này
+            if (registerForm && !registerForm.classList.contains("hidden")) {
+                showRegister();
+            } else {
+                showLogin();
+            }
         }
 
         function showRegister() {

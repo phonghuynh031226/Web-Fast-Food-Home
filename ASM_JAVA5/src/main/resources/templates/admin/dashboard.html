@@ -4,22 +4,58 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title></title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-  <script th:src="@{/js/script.js}"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#f2200d",
+                    "background-light": "#fafaf9",
+                    "background-dark": "#1a1a1a",
+                    "sidebar-dark": "#1c1c1c",
+                },
+                fontFamily: {
+                    "display": ["Plus Jakarta Sans", "sans-serif"]
+                },
+                borderRadius: {
+                    "DEFAULT": "0.5rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+            },
+        },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .active-nav {
+        background-color: #f2200d;
+        color: white !important;
+    }
+    .stat-card {
+        background: #ffffff;
+        transition: transform 0.2s ease;
+    }
+    .dark .stat-card {
+        background: rgba(40, 40, 40, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-[#1c0e0d] dark:text-gray-100 min-h-screen flex">
-
+<div th:replace="~{admin/layout/sidebar :: sidebar}"></div>
 <main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
-
+  <div th:replace="~{admin/layout/header :: header}"></div>
   <div class="p-10 flex-1">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="stat-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5">
@@ -80,7 +116,7 @@
       <p class="font-medium text-sm">Sẵn sàng cho các widget tổng hợp dữ liệu mới</p>
     </div>
   </div>
-
+  <div th:replace="~{admin/layout/footer :: footer}"></div>
 </main>
 
 </body></html>
