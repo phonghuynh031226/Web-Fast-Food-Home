@@ -162,3 +162,16 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("resize", () => goToSlide(currentIndex));
     }
 });
+// Register terms gate: must tick terms before submitting register form.
+document.addEventListener("DOMContentLoaded", () => {
+    const terms = document.getElementById("terms");
+    const submit = document.getElementById("registerSubmit");
+    if (terms && submit) {
+        const syncRegisterButton = () => {
+            submit.disabled = !terms.checked;
+            submit.title = terms.checked ? "" : "Vui lòng đồng ý điều khoản trước khi đăng ký";
+        };
+        terms.addEventListener("change", syncRegisterButton);
+        syncRegisterButton();
+    }
+});

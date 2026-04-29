@@ -23,7 +23,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-end gap-4 mb-10">
       <div>
         <h1 class="text-[#1c0e0d] dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em]">Giỏ hàng của bạn</h1>
-        <p class="text-[#9c5049] dark:text-white/60 text-lg font-medium mt-1">Bạn đang có <span th:text="${#lists.size(cart)}"></span> món ăn trong khay</p>
+        <p class="text-[#9c5049] dark:text-white/60 text-lg font-medium mt-1">Bạn đang có <span th:text="${cart.size()}"></span> món ăn trong khay</p>
       </div>
       <a class="flex items-center gap-2 px-6 py-3 bg-[#f4e8e7] dark:bg-[#333] text-[#1c0e0d] dark:text-white rounded-xl font-bold text-sm hover:bg-[#e8d1ce] transition-colors" th:href="@{/}">
         <span class="material-symbols-outlined text-[18px]" >arrow_back</span>

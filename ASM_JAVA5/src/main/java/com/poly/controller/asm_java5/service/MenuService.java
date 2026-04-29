@@ -11,7 +11,6 @@ import com.poly.controller.asm_java5.entity.Menu;
 import java.util.Collections;
 import java.util.List;
 
-
 @Service
 public class MenuService {
 
@@ -48,8 +47,41 @@ public class MenuService {
     }
 
     public List<MenuItem> findItems(Integer menuId, String sort) {
+        return findItems(menuId, sort, null);
+    }
+
+    public List<MenuItem> findItems(Integer menuId, String sort, String keyword) {
         boolean hasMenu = menuId != null;
         boolean hasSort = sort != null && !sort.isBlank();
+        boolean hasKeyword = keyword != null && !keyword.trim().isBlank();
+        String kw = hasKeyword ? keyword.trim() : null;
+
+        if (hasKeyword) {
+            if (hasMenu && hasSort) {
+                switch (sort) {
+                    case "priceAsc":
+                        return menuItemRepository.findByStatusTrueAndMenu_MenuIdAndItemNameContainingIgnoreCaseOrderByPriceAsc(menuId, kw);
+                    case "priceDesc":
+                        return menuItemRepository.findByStatusTrueAndMenu_MenuIdAndItemNameContainingIgnoreCaseOrderByPriceDesc(menuId, kw);
+                    default:
+                        return menuItemRepository.findByStatusTrueAndMenu_MenuIdAndItemNameContainingIgnoreCase(menuId, kw);
+                }
+            }
+            if (hasMenu) {
+                return menuItemRepository.findByStatusTrueAndMenu_MenuIdAndItemNameContainingIgnoreCase(menuId, kw);
+            }
+            if (hasSort) {
+                switch (sort) {
+                    case "priceAsc":
+                        return menuItemRepository.findByStatusTrueAndItemNameContainingIgnoreCaseOrderByPriceAsc(kw);
+                    case "priceDesc":
+                        return menuItemRepository.findByStatusTrueAndItemNameContainingIgnoreCaseOrderByPriceDesc(kw);
+                    default:
+                        return menuItemRepository.findByStatusTrueAndItemNameContainingIgnoreCase(kw);
+                }
+            }
+            return menuItemRepository.findByStatusTrueAndItemNameContainingIgnoreCase(kw);
+        }
 
         if (!hasMenu && !hasSort) {
             return menuItemRepository.findByStatusTrue();

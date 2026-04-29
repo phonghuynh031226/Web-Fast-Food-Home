@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+
 public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
 
     List<MenuItem> findByStatusTrue();
@@ -21,6 +22,17 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
 
     List<MenuItem> findByStatusTrueAndMenu_MenuIdOrderByPriceDesc(Integer menuId);
 
+    List<MenuItem> findByStatusTrueAndItemNameContainingIgnoreCase(String keyword);
+
+    List<MenuItem> findByStatusTrueAndMenu_MenuIdAndItemNameContainingIgnoreCase(Integer menuId, String keyword);
+
+    List<MenuItem> findByStatusTrueAndItemNameContainingIgnoreCaseOrderByPriceAsc(String keyword);
+
+    List<MenuItem> findByStatusTrueAndItemNameContainingIgnoreCaseOrderByPriceDesc(String keyword);
+
+    List<MenuItem> findByStatusTrueAndMenu_MenuIdAndItemNameContainingIgnoreCaseOrderByPriceAsc(Integer menuId, String keyword);
+
+    List<MenuItem> findByStatusTrueAndMenu_MenuIdAndItemNameContainingIgnoreCaseOrderByPriceDesc(Integer menuId, String keyword);
 
     Optional<MenuItem> findByItemIdAndStatusTrue(Integer itemId);
 

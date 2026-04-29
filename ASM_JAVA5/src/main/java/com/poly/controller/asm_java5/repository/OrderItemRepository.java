@@ -20,4 +20,8 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
         ORDER BY SUM(oi.quantity) DESC
     """)
     List<BestSellerDTO> findBestSellingProducts();
+
+    List<OrderItem> findByOrder_OrderId(Integer orderId);
+
+    void deleteByOrder_OrderId(Integer orderId);
 }

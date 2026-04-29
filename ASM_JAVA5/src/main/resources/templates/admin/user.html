@@ -1,213 +1,62 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title></title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-  <script th:src="@{/js/script.js}"></script>
-
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Quản lý người dùng</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body class="bg-background-light dark:bg-background-dark text-[#1c0e0d] dark:text-gray-100 min-h-screen flex">
-
-<main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
-
-  <div class="p-10 flex-1">
-    <div class="bg-white dark:bg-sidebar-dark rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 overflow-hidden">
-      <div class="px-8 py-6 border-b border-gray-100 dark:border-white/5 flex items-center justify-between">
-        <div>
-          <h3 class="text-lg font-bold text-[#1c0e0d] dark:text-white">Danh sách người dùng</h3>
-          <p class="text-xs text-gray-500 mt-1">Xem và quản lý trạng thái tài khoản khách hàng</p>
+<body class="admin-body">
+<div th:replace="admin/layout/sidebar :: sidebar"></div>
+<main class="admin-main">
+    <div class="admin-page-head"><h2>Quản lý người dùng</h2>
+        <p>Admin không tự tạo tài khoản khách. Trang này chỉ dùng để xem thông tin và nâng/hạ vai trò.</p></div>
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+    <section class="admin-card table-card">
+        <div class="table-wrap">
+            <table class="admin-table user-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Vai trò hiện tại</th>
+                    <th>Cập nhật vai trò</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u:${users}">
+                    <td class="font-bold" th:text="${u.userId}">1</td>
+                    <td th:text="${u.fullName}">Tên</td>
+                    <td th:text="${u.email}">email</td>
+                    <td th:text="${u.phone}">phone</td>
+                    <td th:text="${u.address}">address</td>
+                    <td><span th:class="${u.role == 'admin'} ? 'badge red' : 'badge green'"
+                              th:text="${u.role == 'admin' ? 'Quản trị viên' : 'Khách hàng'}">Vai trò</span></td>
+                    <td>
+                        <form class="role-form" method="post" th:action="@{/admin/user/role}"><input name="userId"
+                                                                                                     th:value="${u.userId}"
+                                                                                                     type="hidden"><select
+                                name="role">
+                            <option th:selected="${u.role == 'customer'}" value="customer">Khách hàng</option>
+                            <option th:selected="${u.role == 'admin'}" value="admin">Quản trị viên</option>
+                        </select>
+                            <button class="btn btn-primary">Lưu</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(users)}">
+                    <td class="empty" colspan="7">Chưa có người dùng</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="flex items-center gap-3">
-          <button class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-            <span class="material-symbols-outlined text-sm">filter_list</span> Bộ lọc
-          </button>
-          <button class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-red-600 transition-colors shadow-sm">
-            <span class="material-symbols-outlined text-sm">person_add</span> Thêm mới
-          </button>
-        </div>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead>
-          <tr class="bg-gray-50/50 dark:bg-white/5">
-            <th class="px-8 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Tên khách hàng</th>
-            <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">SĐT / Email</th>
-            <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Ngày tham gia</th>
-            <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Trạng thái</th>
-            <th class="px-8 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider text-right">Hành động</th>
-          </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-100 dark:divide-white/5">
-          <tr class="table-row transition-colors">
-            <td class="px-8 py-4">
-              <div class="flex items-center gap-3">
-                <div class="size-10 rounded-full bg-cover bg-center border border-gray-100" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFQSckJ1f6f8FjkoK0DH_He3CjdKSimeB8PNWx-2I4fGbEjh_K2cbIDwXReaJAwRl1ApPeBc0pzliavioJT4DMvs_QnQwiQLGqmJcPm2y9nkuN_fVMx7WLaD69HYckfb8OzBDHEy5X81MxqA6eySroOr6Jqurcmrr4eEatOhwrooANhGdl75GRBPqopzxGYrCpD-8Os79Cd9RjVNt_17186fK7Re6P-NEvJgWpdTUITP4Gn6U-efjkhw4VgLebGlTvNvRuRHDNB99E')"></div>
-                <div>
-                  <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Trần Anh Tuấn</p>
-                  <p class="text-[10px] text-gray-400 font-semibold italic">Khách hàng thân thiết</p>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <div class="space-y-0.5">
-                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">0901 234 567</p>
-                <p class="text-xs text-gray-400">tuan.tran@example.com</p>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <span class="text-sm text-gray-500">15/04/2024</span>
-            </td>
-            <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-green-600"></span> Active
-                                    </span>
-            </td>
-            <td class="px-8 py-4 text-right">
-              <div class="flex items-center justify-end gap-2">
-                <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all" title="Xem chi tiết">
-                  <span class="material-symbols-outlined text-lg">visibility</span>
-                </button>
-                <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-amber-100 hover:text-amber-600 transition-all" title="Chặn người dùng">
-                  <span class="material-symbols-outlined text-lg">block</span>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr class="table-row transition-colors">
-            <td class="px-8 py-4">
-              <div class="flex items-center gap-3">
-                <div class="size-10 rounded-full bg-cover bg-center border border-gray-100" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqw0wANFNyQC_cZpr6eliFFgLZCi27Kw0TmVwwEJmd1Sv_b4EXIQd898jGAh9QB133Leq0ah4nnOEqtHW-vVZcHSP_DuCQduBSUAzV95uLYVMmqHDGmdyyF6iFBvk8QxD_osK1tPlAJAluqPkQz2kRDYc-ivc40ckLhoXqEUMt8d3LUu8weZMAN4Os0BnGQ3OPCshQ4Lvm1EH-8uDDxiA3UOw4FwiG9_1DFAYjn1c4jY0-vUC9mbG1z3eJ4nmYO9jeNOIXdW9EszLE')"></div>
-                <div>
-                  <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Lê Minh Trang</p>
-                  <p class="text-[10px] text-gray-400 font-semibold italic">Thành viên mới</p>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <div class="space-y-0.5">
-                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">0988 777 999</p>
-                <p class="text-xs text-gray-400">trang.le@example.com</p>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <span class="text-sm text-gray-500">14/04/2024</span>
-            </td>
-            <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-green-600"></span> Active
-                                    </span>
-            </td>
-            <td class="px-8 py-4 text-right">
-              <div class="flex items-center justify-end gap-2">
-                <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all" title="Xem chi tiết">
-                  <span class="material-symbols-outlined text-lg">visibility</span>
-                </button>
-                <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-amber-100 hover:text-amber-600 transition-all" title="Chặn người dùng">
-                  <span class="material-symbols-outlined text-lg">block</span>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr class="table-row transition-colors">
-            <td class="px-8 py-4">
-              <div class="flex items-center gap-3">
-                <div class="size-10 rounded-full bg-cover bg-center border border-gray-100" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTbG-tykKxmAiqmBkFIDL5mdpfbThaqLmt3wiUQsYxF2_yGIU55ZAxNdWGd0612u1d2lL7SSUss5WwfIyFU1_3KiztJ1D6kSBfZMDolbnE3AutyeomNhMD-i3la0xLhMsyw3GVGgU_KptcC89CRVV56oL1CMjqZYZOzlrKyT9TLJZlQhAZLe4cX8nv6DjIB3QYAb43W1yHhOITorDosN0TxdbojMw1UAIfUI9eArJSPHPdqQQhaSdFVpuNcInZeDkxMLTVffhO_2rh')"></div>
-                <div>
-                  <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Nguyễn Văn Hoàng</p>
-                  <p class="text-[10px] text-gray-400 font-semibold italic">Khách hàng thân thiết</p>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <div class="space-y-0.5">
-                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">0345 123 987</p>
-                <p class="text-xs text-gray-400">hoang.nguyen@example.com</p>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <span class="text-sm text-gray-500">12/04/2024</span>
-            </td>
-            <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-red-600"></span> Block
-                                    </span>
-            </td>
-            <td class="px-8 py-4 text-right">
-              <div class="flex items-center justify-end gap-2">
-                <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all" title="Xem chi tiết">
-                  <span class="material-symbols-outlined text-lg">visibility</span>
-                </button>
-                <button class="size-8 rounded-lg flex items-center justify-center text-green-500 hover:bg-green-100 transition-all" title="Mở khóa người dùng">
-                  <span class="material-symbols-outlined text-lg">check_circle</span>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr class="table-row transition-colors">
-            <td class="px-8 py-4">
-              <div class="flex items-center gap-3">
-                <div class="size-10 rounded-full bg-cover bg-center border border-gray-100" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgZ4F2c6HY0z3OPJDYLlMVpTTFL2OgNtloflOIqz0i6ZO8Kp3OU0oplqL57d0WGCT_R81Byol_jfi76J8brgxHViAquvGZAcSq3bD1_izlrVITORNuMK5OtWcSuHC7qhwxgzvHquc3UP2Sm_DTdhDZK0HFRw8wuJQbNqBMSonmUgje7XvE1KY4wyOElieVZvvsLFYgPtAeRy6Cow8l5AfYUOmZxW2Lcl2m-UJgH0s4R46fjNoBBFzNCqkVN6DT7dX1xOYcx6HkttUZ')"></div>
-                <div>
-                  <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Phạm Thùy Linh</p>
-                  <p class="text-[10px] text-gray-400 font-semibold italic">Thành viên mới</p>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <div class="space-y-0.5">
-                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">0912 444 555</p>
-                <p class="text-xs text-gray-400">linh.pham@example.com</p>
-              </div>
-            </td>
-            <td class="px-6 py-4">
-              <span class="text-sm text-gray-500">10/04/2024</span>
-            </td>
-            <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-green-600"></span> Active
-                                    </span>
-            </td>
-            <td class="px-8 py-4 text-right">
-              <div class="flex items-center justify-end gap-2">
-                <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all" title="Xem chi tiết">
-                  <span class="material-symbols-outlined text-lg">visibility</span>
-                </button>
-                <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-amber-100 hover:text-amber-600 transition-all" title="Chặn người dùng">
-                  <span class="material-symbols-outlined text-lg">block</span>
-                </button>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="px-8 py-6 flex items-center justify-between bg-gray-50/30 dark:bg-white/5 border-t border-gray-100 dark:border-white/5">
-        <p class="text-xs text-gray-500 font-medium">Hiển thị <span class="text-[#1c0e0d] dark:text-white">1 - 4</span> của <span class="text-[#1c0e0d] dark:text-white">850</span> khách hàng</p>
-        <div class="flex items-center gap-2">
-          <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors disabled:opacity-50" disabled="">
-            <span class="material-symbols-outlined text-lg">chevron_left</span>
-          </button>
-          <button class="size-8 rounded-lg bg-primary text-white text-xs font-bold shadow-sm">1</button>
-          <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 text-xs font-bold hover:border-primary/50 transition-colors">2</button>
-          <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 text-xs font-bold hover:border-primary/50 transition-colors">3</button>
-          <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-lg">chevron_right</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+    </section>
 </main>
-
-</body></html>
+</body>
+</html>

@@ -1,204 +1,70 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title></title>
-    <!-- Tailwind CSS -->
+    <title>Quản lý đơn hàng</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <script th:src="@{/js/script.js}"></script>
-
 </head>
-<body class="bg-background-light dark:bg-background-dark text-[#1c0e0d] dark:text-gray-100 min-h-screen flex">
-
-<main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
-
-    <div class="p-10 flex-1">
-        <div class="bg-white dark:bg-sidebar-dark rounded-3xl shadow-sm border border-gray-100 dark:border-white/5 overflow-hidden">
-            <div class="px-8 py-6 border-b border-gray-100 dark:border-white/5 flex items-center justify-between">
-                <div>
-                    <h3 class="text-lg font-bold text-[#1c0e0d] dark:text-white">Danh sách đơn hàng</h3>
-                    <p class="text-xs text-gray-500 mt-1">Quản lý và theo dõi các đơn hàng trong ngày</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-                        <span class="material-symbols-outlined text-sm">filter_list</span> Bộ lọc
-                    </button>
-                    <button class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-red-600 transition-colors shadow-sm">
-                        <span class="material-symbols-outlined text-sm">download</span> Xuất báo cáo
-                    </button>
+<body class="admin-body">
+<div th:replace="admin/layout/sidebar :: sidebar"></div>
+<main class="admin-main">
+    <div class="admin-page-head"><h2>Quản lý đơn hàng</h2>
+        <p>Xem thông tin khách, danh sách món trong từng đơn và tổng tiền.</p></div>
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+    <section class="admin-card order-list" th:if="${!#lists.isEmpty(orders)}">
+        <article class="order-card" th:each="o:${orders}">
+            <div class="order-head">
+                <div><h3 th:text="'#DH-' + ${o.orderId}">#DH</h3>
+                    <p th:text="${#temporals.format(o.createdAt,'HH:mm dd/MM/yyyy')}">date</p></div>
+                <div class="order-total" th:text="${#numbers.formatDecimal(o.totalAmount,0,'COMMA',0,'POINT')} + 'đ'">
+                    0đ
                 </div>
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+            <div class="order-info">
+                <div><span>Khách hàng</span><strong th:text="${o.customerName}">Khách</strong></div>
+                <div><span>Số điện thoại</span><strong th:text="${o.phone}">phone</strong></div>
+                <div><span>Địa chỉ</span><strong th:text="${o.address}">address</strong></div>
+                <div><span>Thanh toán</span><strong th:text="${o.paymentMethod == 'ATM' ? 'Chuyển khoản' : 'Tiền mặt'}">Tiền
+                    mặt</strong></div>
+            </div>
+            <p class="order-note" th:if="${o.note}" th:text="'Ghi chú: ' + ${o.note}">note</p>
+            <div class="order-detail"><h4>Sản phẩm trong đơn</h4>
+                <table class="admin-table compact">
                     <thead>
-                    <tr class="bg-gray-50/50 dark:bg-white/5">
-                        <th class="px-8 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Mã đơn</th>
-                        <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Tên khách hàng</th>
-                        <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Số điện thoại</th>
-                        <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Hình thức</th>
-                        <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Thanh toán</th>
-                        <th class="px-6 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Trạng thái</th>
-                        <th class="px-8 py-4 text-[11px] font-bold text-gray-400 uppercase tracking-wider text-right">Hành động</th>
+                    <tr>
+                        <th>Món</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
                     </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100 dark:divide-white/5">
-                    <tr class="table-row transition-colors">
-                        <td class="px-8 py-4">
-                            <span class="text-sm font-bold text-gray-600">#DH-1024</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Trần Anh Tuấn</p>
-                            <p class="text-[10px] text-gray-400 uppercase font-semibold">14:20 - 15/04/2024</p>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="text-sm text-gray-600 font-medium">0901 234 567</span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">local_shipping</span> Ship
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">account_balance_wallet</span> Chuyển khoản
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-amber-600 animate-pulse"></span> Chờ xử lý
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all">
-                                <span class="material-symbols-outlined text-lg">visibility</span>
-                            </button>
+                    <tbody>
+                    <tr th:each="it:${o.orderItems}">
+                        <td th:text="${it.itemName}">Món</td>
+                        <td th:text="${#numbers.formatDecimal(it.price,0,'COMMA',0,'POINT')} + 'đ'">0đ</td>
+                        <td th:text="${it.quantity}">1</td>
+                        <td class="money"
+                            th:text="${#numbers.formatDecimal(it.price * it.quantity,0,'COMMA',0,'POINT')} + 'đ'">0đ
                         </td>
                     </tr>
-                    <tr class="table-row transition-colors">
-                        <td class="px-8 py-4">
-                            <span class="text-sm font-bold text-gray-600">#DH-1025</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Lê Minh Trang</p>
-                            <p class="text-[10px] text-gray-400 uppercase font-semibold">14:05 - 15/04/2024</p>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="text-sm text-gray-600 font-medium">0988 777 999</span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">store</span> Tại quầy
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-slate-50 dark:bg-slate-500/10 text-slate-600 dark:text-slate-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">payments</span> Tiền mặt
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-blue-600"></span> Đang giao
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all">
-                                <span class="material-symbols-outlined text-lg">visibility</span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr class="table-row transition-colors">
-                        <td class="px-8 py-4">
-                            <span class="text-sm font-bold text-gray-600">#DH-1026</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Nguyễn Văn Hoàng</p>
-                            <p class="text-[10px] text-gray-400 uppercase font-semibold">13:50 - 15/04/2024</p>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="text-sm text-gray-600 font-medium">0345 123 987</span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">local_shipping</span> Ship
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">account_balance_wallet</span> Chuyển khoản
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-green-600"></span> Hoàn thành
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all">
-                                <span class="material-symbols-outlined text-lg">visibility</span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr class="table-row transition-colors">
-                        <td class="px-8 py-4">
-                            <span class="text-sm font-bold text-gray-600">#DH-1027</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <p class="font-bold text-sm text-[#1c0e0d] dark:text-white">Phạm Thùy Linh</p>
-                            <p class="text-[10px] text-gray-400 uppercase font-semibold">13:30 - 15/04/2024</p>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="text-sm text-gray-600 font-medium">0912 444 555</span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">store</span> Tại quầy
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-slate-50 dark:bg-slate-500/10 text-slate-600 dark:text-slate-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="material-symbols-outlined text-sm">payments</span> Tiền mặt
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-<span class="px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-500 text-[10px] font-bold uppercase flex items-center gap-1.5 w-fit">
-<span class="size-1.5 rounded-full bg-green-600"></span> Hoàn thành
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <button class="size-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-primary/10 hover:text-primary transition-all">
-                                <span class="material-symbols-outlined text-lg">visibility</span>
-                            </button>
-                        </td>
+                    <tr th:if="${#lists.isEmpty(o.orderItems)}">
+                        <td class="empty" colspan="4">Đơn này chưa có chi tiết sản phẩm</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="px-8 py-6 flex items-center justify-between bg-gray-50/30 dark:bg-white/5 border-t border-gray-100 dark:border-white/5">
-                <p class="text-xs text-gray-500 font-medium">Hiển thị <span class="text-[#1c0e0d] dark:text-white">1 - 4</span> của <span class="text-[#1c0e0d] dark:text-white">128</span> đơn hàng</p>
-                <div class="flex items-center gap-2">
-                    <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors disabled:opacity-50" disabled="">
-                        <span class="material-symbols-outlined text-lg">chevron_left</span>
-                    </button>
-                    <button class="size-8 rounded-lg bg-primary text-white text-xs font-bold shadow-sm">1</button>
-                    <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 text-xs font-bold hover:border-primary/50 transition-colors">2</button>
-                    <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 text-xs font-bold hover:border-primary/50 transition-colors">3</button>
-                    <button class="size-8 rounded-lg border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-400 hover:text-primary transition-colors">
-                        <span class="material-symbols-outlined text-lg">chevron_right</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+            <form class="order-actions" method="post" th:action="@{/admin/order/delete}"><input name="orderId"
+                                                                                                th:value="${o.orderId}"
+                                                                                                type="hidden">
+                <button class="btn btn-danger" onclick="return confirm('Xóa đơn hàng này?')">Xóa đơn</button>
+            </form>
+        </article>
+    </section>
+    <section class="admin-card empty big" th:if="${#lists.isEmpty(orders)}">Chưa có đơn hàng</section>
 </main>
-
-</body></html>
+</body>
+</html>

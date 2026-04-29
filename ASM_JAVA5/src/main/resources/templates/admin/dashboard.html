@@ -1,86 +1,72 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title></title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-  <script th:src="@{/js/script.js}"></script>
-
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Bảng điều khiển</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body class="bg-background-light dark:bg-background-dark text-[#1c0e0d] dark:text-gray-100 min-h-screen flex">
-
-<main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
-
-  <div class="p-10 flex-1">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="stat-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5">
-        <div class="flex items-center justify-between mb-4">
-          <div class="size-12 bg-primary/10 rounded-xl flex items-center justify-center">
-            <span class="material-symbols-outlined text-primary text-2xl">restaurant_menu</span>
-          </div>
-          <div class="flex items-center gap-1 text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-lg">
-            <span class="material-symbols-outlined text-xs">trending_up</span>
-            +5.2%
-          </div>
-        </div>
-        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Tổng món ăn</p>
-        <p class="text-3xl font-extrabold text-[#1c0e0d] dark:text-white mt-1">85</p>
-      </div>
-      <div class="stat-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5">
-        <div class="flex items-center justify-between mb-4">
-          <div class="size-12 bg-amber-500/10 rounded-xl flex items-center justify-center">
-            <span class="material-symbols-outlined text-amber-500 text-2xl">lunch_dining</span>
-          </div>
-          <div class="flex items-center gap-1 text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-lg">
-            <span class="material-symbols-outlined text-xs">trending_up</span>
-            +2.4%
-          </div>
-        </div>
-        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Tổng combo</p>
-        <p class="text-3xl font-extrabold text-[#1c0e0d] dark:text-white mt-1">24</p>
-      </div>
-      <div class="stat-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5">
-        <div class="flex items-center justify-between mb-4">
-          <div class="size-12 bg-blue-500/10 rounded-xl flex items-center justify-center">
-            <span class="material-symbols-outlined text-blue-500 text-2xl">receipt_long</span>
-          </div>
-          <div class="flex items-center gap-1 text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-lg">
-            <span class="material-symbols-outlined text-xs">trending_up</span>
-            +12.8%
-          </div>
-        </div>
-        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Tổng đơn hàng</p>
-        <p class="text-3xl font-extrabold text-[#1c0e0d] dark:text-white mt-1">1,240</p>
-      </div>
-      <div class="stat-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5">
-        <div class="flex items-center justify-between mb-4">
-          <div class="size-12 bg-purple-500/10 rounded-xl flex items-center justify-center">
-            <span class="material-symbols-outlined text-purple-500 text-2xl">group</span>
-          </div>
-          <div class="flex items-center gap-1 text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-lg">
-            <span class="material-symbols-outlined text-xs">trending_up</span>
-            +8.1%
-          </div>
-        </div>
-        <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Tổng người dùng</p>
-        <p class="text-3xl font-extrabold text-[#1c0e0d] dark:text-white mt-1">5,600</p>
-      </div>
+<body class="admin-body">
+<div th:replace="admin/layout/sidebar :: sidebar"></div>
+<main class="admin-main">
+    <div class="admin-page-head"><h2>Bảng điều khiển</h2>
+        <p>Theo dõi nhanh doanh thu, đơn hàng và dữ liệu website.</p></div>
+    <div class="admin-stats">
+        <div class="admin-card stat"><span class="material-symbols-outlined icon-red">restaurant_menu</span>
+            <p>Tổng món ăn</p><strong th:text="${totalProducts}">0</strong></div>
+        <div class="admin-card stat"><span class="material-symbols-outlined icon-orange">category</span>
+            <p>Tổng danh mục</p><strong th:text="${totalMenus}">0</strong></div>
+        <div class="admin-card stat"><span class="material-symbols-outlined icon-blue">receipt_long</span>
+            <p>Tổng đơn hàng</p><strong th:text="${totalOrders}">0</strong></div>
+        <div class="admin-card stat"><span class="material-symbols-outlined icon-purple">group</span>
+            <p>Tổng người dùng</p><strong th:text="${totalUsers}">0</strong></div>
     </div>
-    <div class="mt-10 min-h-[400px] rounded-3xl border-2 border-dashed border-gray-200 dark:border-white/5 flex flex-col items-center justify-center text-gray-400">
-      <span class="material-symbols-outlined text-5xl mb-4">analytics</span>
-      <p class="font-medium text-sm">Sẵn sàng cho các widget tổng hợp dữ liệu mới</p>
+    <div class="admin-grid mt-7">
+        <section class="admin-card revenue-card">
+            <p class="label">Tổng doanh thu</p>
+            <h3 th:text="${#numbers.formatDecimal(totalRevenue,0,'COMMA',0,'POINT')} + 'đ'">0đ</h3>
+            <div class="chart-title">Biểu đồ doanh thu 6 tháng gần nhất</div>
+            <div class="bar-chart" th:with="max=${maxMonthRevenue}">
+                <div class="bar-item" th:each="value,stat : ${monthRevenues}">
+                    <div class="bar-value" th:text="${#numbers.formatDecimal(value,0,'COMMA',0,'POINT')} + 'đ'">0đ</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" th:style="'height:' + ${monthPercents[stat.index]} + '%'"></div>
+                    </div>
+                    <div class="bar-label" th:text="${monthLabels[stat.index]}">Tháng</div>
+                </div>
+            </div>
+        </section>
+        <section class="admin-card table-card">
+            <div class="table-title"><h3>Đơn hàng mới nhất</h3><a th:href="@{/admin/order}">Xem tất cả</a></div>
+            <div class="table-wrap">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Khách hàng</th>
+                        <th>Thanh toán</th>
+                        <th>Tổng</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="o : ${recentOrders}">
+                        <td class="font-bold" th:text="'#' + ${o.orderId}">#1</td>
+                        <td th:text="${o.customerName}">Khách</td>
+                        <td th:text="${o.paymentMethod == 'ATM' ? 'Chuyển khoản' : 'Tiền mặt'}">CASH</td>
+                        <td class="money" th:text="${#numbers.formatDecimal(o.totalAmount,0,'COMMA',0,'POINT')} + 'đ'">
+                            0đ
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(recentOrders)}">
+                        <td class="empty" colspan="4">Chưa có đơn hàng</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
-  </div>
-
 </main>
-
-</body></html>
+</body>
+</html>

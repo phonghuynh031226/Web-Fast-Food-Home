@@ -2,6 +2,8 @@ package com.poly.controller.asm_java5.controller;
 
 import com.poly.controller.asm_java5.entity.User;
 import com.poly.controller.asm_java5.service.AuthService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @GetMapping("/login")
+    @GetMapping({"/login", ""})
     public String authPage() {
         return "auth/auth";
     }
@@ -26,9 +28,10 @@ public class AuthController {
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String confirmPassword,
+            @RequestParam(required = false) Boolean acceptTerms,
             Model model
     ) {
-        String message = authService.register(fullName, email, password, confirmPassword);
+        String message = authService.register(fullName, email, password, confirmPassword, acceptTerms);
 
         if ("Đăng ký thành công".equals(message)) {
             model.addAttribute("success", message);
@@ -44,7 +47,9 @@ public class AuthController {
     public String login(
             @RequestParam String email,
             @RequestParam String password,
+            @RequestParam(required = false) Boolean remember,
             HttpSession session,
+            HttpServletResponse response,
             Model model
     ) {
         User user = authService.login(email, password);
@@ -55,6 +60,22 @@ public class AuthController {
         }
 
         session.setAttribute("loggedInUser", user);
+        session.setAttribute("user", user);
+
+        Cookie sessionCookie = new Cookie("JSESSIONID", session.getId());
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setPath("/");
+
+        if (Boolean.TRUE.equals(remember)) {
+            int sevenDays = 7 * 24 * 60 * 60;
+            session.setMaxInactiveInterval(sevenDays);
+            sessionCookie.setMaxAge(sevenDays);
+        } else {
+            session.setMaxInactiveInterval(30 * 60);
+            sessionCookie.setMaxAge(-1);
+        }
+
+        response.addCookie(sessionCookie);
 
         if ("admin".equalsIgnoreCase(user.getRole())) {
             return "redirect:/admin/dashboard";
@@ -64,8 +85,13 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, HttpServletResponse response) {
         session.invalidate();
+        Cookie sessionCookie = new Cookie("JSESSIONID", "");
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setPath("/");
+        sessionCookie.setMaxAge(0);
+        response.addCookie(sessionCookie);
         return "redirect:/auth/login";
     }
 

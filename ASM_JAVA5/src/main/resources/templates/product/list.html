@@ -3,18 +3,12 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title></title>
-    <!-- Tailwind CSS -->
+    <title>Thực đơn - Fast Food Home</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-    <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <script th:src="@{/js/script.js}"></script>
-
 </head>
 <body>
 <div th:replace="layout/header :: header"></div>
@@ -22,38 +16,39 @@
     <div th:replace="layout/menu :: menu"></div>
     <section class="flex-1">
         <div class="flex items-center justify-between mb-8 overflow-x-auto pb-2">
+            <div th:if="${keyword != null and !#strings.isEmpty(keyword)}">
+                <h1 class="text-2xl font-extrabold">Kết quả tìm kiếm: <span class="text-primary" th:text="${keyword}"></span></h1>
+                <p class="text-sm text-gray-500 mt-1" th:text="${#lists.size(items)} + ' món được tìm thấy'"></p>
+            </div>
+            <h1 class="text-2xl font-extrabold" th:if="${keyword == null or #strings.isEmpty(keyword)}">Thực đơn</h1>
             <form method="get" th:action="@{/product/list}" class="hidden sm:flex items-center gap-2">
                 <input type="hidden" name="menuId" th:value="${selectedMenuId}">
+                <input type="hidden" name="keyword" th:value="${keyword}">
                 <span class="text-xs font-medium text-gray-500">Sắp xếp:</span>
-                <select name="sort"
-                        onchange="this.form.submit()"
-                        class="text-xs font-bold border-none bg-transparent focus:ring-0 p-0 pr-6">
+                <select name="sort" onchange="this.form.submit()" class="text-xs font-bold border-none bg-transparent focus:ring-0 p-0 pr-6">
                     <option value="" th:selected="${selectedSort == null or selectedSort == ''}">Phổ biến nhất</option>
                     <option value="priceAsc" th:selected="${selectedSort == 'priceAsc'}">Giá: Thấp đến Cao</option>
                     <option value="priceDesc" th:selected="${selectedSort == 'priceDesc'}">Giá: Cao đến Thấp</option>
                 </select>
             </form>
         </div>
-        <div class="product-grid" id="productGrid">
-            <div class="product-card group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
-                 th:each="item : ${items}">
+
+        <div class="rounded-2xl border border-dashed border-gray-200 p-8 text-center text-gray-500" th:if="${#lists.isEmpty(items)}">
+            Không tìm thấy món phù hợp. Vui lòng thử từ khóa khác.
+        </div>
+
+        <div class="product-grid" id="productGrid" th:if="${!#lists.isEmpty(items)}">
+            <div class="product-card group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700" th:each="item : ${items}">
                 <div class="relative h-48 w-full overflow-hidden">
-                    <div class="absolute top-3 left-3 z-10 bg-accent-yellow text-gray-900 text-[10px] font-black px-2 py-1 rounded-lg uppercase shadow-sm">
-                        Hot
-                    </div>
-                    <img class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
-                         th:alt="${item.itemName}"
-                         th:src="@{'/images/' + ${item.image}}"/>
+                    <div class="absolute top-3 left-3 z-10 bg-accent-yellow text-gray-900 text-[10px] font-black px-2 py-1 rounded-lg uppercase shadow-sm">Hot</div>
+                    <img class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" th:alt="${item.itemName}" th:src="@{'/images/' + ${item.image}}"/>
                 </div>
                 <div class="p-4">
                     <h3 class="font-extrabold text-lg leading-tight mb-1" th:text="${item.itemName}"></h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1"
-                       th:text="${item.description}"></p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-1" th:text="${item.description}"></p>
                     <div class="flex flex-col gap-3">
-                    <span class="text-primary font-extrabold text-lg"
-                          th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + 'đ'"></span>
-                        <a class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10"
-                           th:href="@{/product/detail/{id}(id=${item.itemId})}">
+                        <span class="text-primary font-extrabold text-lg" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + 'đ'"></span>
+                        <a class="w-full bg-primary text-white py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/10" th:href="@{/product/detail/{id}(id=${item.itemId})}">
                             <span class="material-symbols-outlined text-lg">info</span>
                             <span class="text-sm font-bold">Xem chi tiết</span>
                         </a>
@@ -62,16 +57,13 @@
             </div>
         </div>
 
-        <div class="mt-12 flex justify-center">
-            <button id="loadMoreBtn"
-                    type="button"
-                    class="px-8 py-3 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">
+        <div class="mt-12 flex justify-center" th:if="${!#lists.isEmpty(items)}">
+            <button id="loadMoreBtn" type="button" class="px-8 py-3 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">
                 Xem Thêm Món Ngon
             </button>
         </div>
     </section>
 </main>
 <div th:replace="layout/footer :: footer"></div>
-
 </body>
 </html>

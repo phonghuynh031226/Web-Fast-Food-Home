@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-2 py-1">
-                        <input class="rounded border-[#e8d1ce] text-primary focus:ring-primary size-4" id="remember" type="checkbox"/>
+                        <input class="rounded border-[#e8d1ce] text-primary focus:ring-primary size-4" id="remember" name="remember" value="true" type="checkbox"/>
                         <label class="text-sm font-medium text-[#9c5049] dark:text-white/60 cursor-pointer" for="remember">Ghi nhớ đăng nhập</label>
                     </div>
                     <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]">
@@ -83,8 +83,8 @@
                     </button>
                 </form>
                 <form id="registerForm" th:action="@{/auth/register}" method="post"
-                          class="space-y-4"
-                          th:classappend="${showRegister} ? '' : ' hidden'">
+                      class="space-y-4"
+                      th:classappend="${showRegister} ? '' : ' hidden'">
                     <p th:if="${registerError}" th:text="${registerError}" class="text-red-500 text-sm font-medium"></p>
                     <div class="space-y-1.5">
                         <label class="block text-sm font-bold text-[#1c0e0d] dark:text-white/90">Họ và tên</label>
@@ -130,12 +130,12 @@
                         </div>
                     </div>
                     <div class="flex items-start gap-2 py-2">
-                        <input class="mt-1 rounded border-[#e8d1ce] text-primary focus:ring-primary size-4" id="terms" type="checkbox"/>
+                        <input class="mt-1 rounded border-[#e8d1ce] text-primary focus:ring-primary size-4" id="terms" name="acceptTerms" value="true" required type="checkbox"/>
                         <label class="text-xs font-medium text-[#9c5049] dark:text-white/60 cursor-pointer" for="terms">
                             Tôi đồng ý với các <a class="text-primary hover:underline" href="#">Điều khoản dịch vụ</a> và <a class="text-primary hover:underline" href="#">Chính sách bảo mật</a>.
                         </label>
                     </div>
-                    <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98] mt-2">
+                    <button id="registerSubmit" class="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98] mt-2">
                         Đăng ký ngay
                     </button>
                 </form>

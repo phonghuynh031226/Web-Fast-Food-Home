@@ -10,24 +10,25 @@
             <nav class="hidden md:flex items-center gap-8">
                 <a class="text-sm font-bold hover:text-primary transition-colors" th:href="@{/product/list}">Thực đơn</a>
                 <a class="text-sm font-bold hover:text-primary transition-colors" th:href="@{/auth/login}"
-                   th:if="${session.user == null}">Đăng Nhập</a>
+                   th:if="${session.loggedInUser == null}">Đăng Nhập</a>
                 <a class="text-sm font-bold hover:text-primary transition-colors" th:href="@{/auth/logout}"
-                   th:if="${session.user != null}">Đăng xuất</a>
+                   th:if="${session.loggedInUser != null}">Đăng xuất</a>
             </nav>
         </div>
         <div class="flex items-center gap-4">
-            <div class="relative hidden sm:block">
-                <input class="h-10 w-48 lg:w-64 rounded-xl border-none bg-[#f4e8e7] dark:bg-[#2a2a2a] pl-10 text-sm focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Tìm món ăn..." type="text"/>
-                <span class="material-symbols-outlined absolute left-3 top-2.5 text-[#9c5049] text-xl">search</span>
-            </div>
+            <form class="relative hidden sm:block" th:action="@{/product/search}" method="get">
+                <input name="keyword" th:value="${keyword}" class="h-10 w-48 lg:w-64 rounded-xl border-none bg-[#f4e8e7] dark:bg-[#2a2a2a] pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Tìm món ăn..." type="text" required/>
+                <button type="submit" class="absolute left-3 top-2.5 text-[#9c5049] hover:text-primary transition-colors" aria-label="Tìm kiếm">
+                    <span class="material-symbols-outlined text-xl">search</span>
+                </button>
+            </form>
             <a class="relative flex items-center justify-center size-10 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all" th:href="@{/cart}">
                 <span class="material-symbols-outlined">shopping_basket</span>
             </a>
-            <a class="text-sm font-bold hover:text-primary transition-colors"
-
-               th:if="${session.user != null}">
-                Xin chào <span th:text="${session.user.fullName}"></span></a>
-            <a class="size-10 rounded-full bg-cover bg-center border-2 border-primary/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_WDFTK3Sjg4icFtqaSUh4OtzrI9H-hHjT8Q4pgwPvMVgn2emGgeU6tHEzMbHokiYFRf33g6d4OvY1SC5EoBLlKWRNca2wzGnCmNjE6yhndefRCGebVoU_l-LUxyCeaLG1NxX6dlwrPlA7uIvX7OMvZCL3qtA0Gpt4naznsBXDSDcqJYpVaGfc49D8S6Ox-Gy-Imvijw_9qeDxlEGEhWW8gLZmlEOZ5cyQzumDdEEIhAjbUArAAS9YSmtzPQo2O5NgOh8HhoBpc5P2');" th:href="@{/profile}"></a>
+            <a class="text-sm font-bold hover:text-primary transition-colors" th:href="@{/profile}"
+               th:if="${session.loggedInUser != null}">
+                Xin chào <span th:text="${session.loggedInUser.fullName}"></span></a>
+            <a class="size-10 rounded-full bg-cover bg-center border-2 border-primary/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_WDFTK3Sjg4icFtqaSUh4OtzrI9H-hHjT8Q4pgwPvMVgn2emGgeU6tHEzMbHokiYFRf33g6d4OvY1SC5EoBLlKWRNca2wzGnCmNjE6yhndefRCGebVoU_l-LUxyCeaLG1NxX6dlwrPlA7uIvX7OMvZCL3qtA0Gpt4naznsBXDSDcqJYpVaGfc49D8S6Ox-Gy-Imvijw_9qeDxlEGEhWW8gLZmlEOZ5cyQzumDdEEIhAjbUArAAS9YSmtzPQo2O5NgOh8HhoBpc5P2');" th:href="@{/profile}" th:if="${session.loggedInUser != null}"></a>
         </div>
     </div>
 </header>
